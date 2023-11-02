@@ -5,6 +5,7 @@ import 'package:pos_app/screen/home/cart_screen.dart';
 import 'package:pos_app/screen/home/home_screen.dart';
 import 'package:pos_app/screen/home/invoice_screen.dart';
 import 'package:pos_app/screen/home/product_screen.dart';
+import 'package:pos_app/screen/restock/restock_screen.dart';
 import 'package:pos_app/theme.dart';
 
 class mainHome extends StatefulWidget {
@@ -27,7 +28,10 @@ class _mainHomeState extends State<mainHome> {
 
     Widget restockButton() {
       return FloatingActionButton(
-        onPressed: () {},
+        heroTag: 'restock',
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => restockScreen(),));
+        },
         backgroundColor: primaryColor,
         child: Image.asset('assets/icons/restock.png', width: 28,),
       );

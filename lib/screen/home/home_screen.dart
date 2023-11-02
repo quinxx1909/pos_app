@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pos_app/screen/restock/restock_validator_screen.dart';
 import 'package:pos_app/theme.dart';
 
 class homeScreen extends StatelessWidget {
@@ -160,10 +161,13 @@ class homeScreen extends StatelessWidget {
             SizedBox(height: 15,),
             Align(
               alignment: Alignment.centerRight,
-              child: Text(
-                  'lihat semua transaksi',
-                  style: primaryTextStyle.copyWith(fontWeight: medium),
-                ),
+              child: GestureDetector(
+                onTap: () {},
+                child: Text(
+                    'lihat semua transaksi',
+                    style: primaryTextStyle.copyWith(fontWeight: medium),
+                  ),
+              ),
             )
           ],
         ),
@@ -253,10 +257,13 @@ class homeScreen extends StatelessWidget {
       );
     }
     
-    Widget restockValidator() {
+    Widget restockValidatorHome() {
       return FloatingActionButton(
+        heroTag: 'restockhome',
         elevation: 0,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => restockValidatorScreen(),));
+        },
         backgroundColor: primaryColor,
         child: Image.asset('assets/icons/restock-validator.png', width: 24,),
       );
@@ -264,7 +271,7 @@ class homeScreen extends StatelessWidget {
     
     return Scaffold(
       backgroundColor: backgorundColor3,
-      floatingActionButton: restockValidator(),
+      floatingActionButton: restockValidatorHome(),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 24),
@@ -276,7 +283,7 @@ class homeScreen extends StatelessWidget {
               uangMasuk(),
               titleUangKeluar(),
               uangKeluar(),
-              SizedBox(height: 20,)
+              SizedBox(height: 80,)
             ],
           ),
         ),
