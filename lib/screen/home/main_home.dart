@@ -13,7 +13,6 @@ class mainHome extends StatefulWidget {
 }
 
 class _mainHomeState extends State<mainHome> {
-
   int currentIndex = 0;
   final screens = [
     homeScreen(),
@@ -24,12 +23,15 @@ class _mainHomeState extends State<mainHome> {
 
   @override
   Widget build(BuildContext context) {
-
     Widget restockButton() {
       return FloatingActionButton(
+        heroTag: 'restock',
         onPressed: () {},
         backgroundColor: primaryColor,
-        child: Image.asset('assets/icons/restock.png', width: 28,),
+        child: Image.asset(
+          'assets/icons/restock.png',
+          width: 28,
+        ),
       );
     }
 
@@ -39,8 +41,7 @@ class _mainHomeState extends State<mainHome> {
         elevation: 0,
         shape: CircularNotchedRectangle(),
         clipBehavior: Clip.antiAlias,
-        child: 
-        BottomNavigationBar(
+        child: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: (index) => setState(() => currentIndex = index),
           fixedColor: Colors.black,
@@ -48,25 +49,33 @@ class _mainHomeState extends State<mainHome> {
           elevation: 0,
           items: [
             BottomNavigationBarItem(
-              icon: Image.asset('assets/icons/home.png', width: 20,),
-              // icon: Icon(Icons.favorite, size: 20,),
-              label: 'home'
-            ),
+                icon: Image.asset(
+                  'assets/icons/home.png',
+                  width: 20,
+                ),
+                // icon: Icon(Icons.favorite, size: 20,),
+                label: 'home'),
             BottomNavigationBarItem(
-              icon: Image.asset('assets/icons/product.png', width: 20,),
-              // icon: Icon(Icons.favorite, size: 20, color: Colors.amber,),
-              label: 'product'
-            ),
+                icon: Image.asset(
+                  'assets/icons/product.png',
+                  width: 20,
+                ),
+                // icon: Icon(Icons.favorite, size: 20, color: Colors.amber,),
+                label: 'product'),
             BottomNavigationBarItem(
-              icon: Image.asset('assets/icons/cart.png', width: 20,),
-              // icon: Icon(Icons.favorite, size: 20,),
-              label: 'cart'
-            ),
+                icon: Image.asset(
+                  'assets/icons/cart.png',
+                  width: 20,
+                ),
+                // icon: Icon(Icons.favorite, size: 20,),
+                label: 'cart'),
             BottomNavigationBarItem(
-              icon: Image.asset('assets/icons/invoice.png', width: 20,),
-              // icon: Icon(Icons.favorite, size: 20,),
-              label: 'invoice'
-            ),
+                icon: Image.asset(
+                  'assets/icons/invoice.png',
+                  width: 20,
+                ),
+                // icon: Icon(Icons.favorite, size: 20,),
+                label: 'invoice'),
           ],
         ),
       );

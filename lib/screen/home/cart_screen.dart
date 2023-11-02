@@ -6,10 +6,9 @@ class cartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Widget titleWallet() {
       return Container(
-        margin: EdgeInsets.only(top: 37),
+        margin: EdgeInsets.only(top: 17),
         child: Text(
           'Bit Wallet',
           style: primaryTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
@@ -19,32 +18,33 @@ class cartScreen extends StatelessWidget {
 
     Widget walletCard() {
       return Container(
-        height: 55,
-        width: 80,
-        margin: EdgeInsets.only(top: 10),
-        child: Row(
-          children: [
-            Image.asset('assets/images/card.png'),
-            SizedBox(width: 16,),
-            Container(
-              margin: EdgeInsets.only(top: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'VINKCY FIRMAN PRATAMA',
-                    style: primaryTextStyle.copyWith(fontSize: 16),
-                  ),
-                  Text(
-                    'my card',
-                    style: transparantTextStyle.copyWith(fontSize: 12),
-                  ),
-                ],
+          height: 55,
+          width: 80,
+          margin: EdgeInsets.only(top: 2),
+          child: Row(
+            children: [
+              Image.asset('assets/images/card.png'),
+              SizedBox(
+                width: 16,
               ),
-            )
-          ],
-        )
-      );
+              Container(
+                margin: EdgeInsets.only(top: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'VINKCY FIRMAN PRATAMA',
+                      style: primaryTextStyle.copyWith(fontSize: 16),
+                    ),
+                    Text(
+                      'my card',
+                      style: transparantTextStyle.copyWith(fontSize: 12),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ));
     }
 
     Widget titleMenu() {
@@ -59,10 +59,14 @@ class cartScreen extends StatelessWidget {
 
     Widget restockValidator3() {
       return FloatingActionButton(
+        heroTag: 'restock3',
         elevation: 0,
         onPressed: () {},
         backgroundColor: primaryColor,
-        child: Image.asset('assets/icons/restock-validator.png', width: 24,),
+        child: Image.asset(
+          'assets/icons/restock-validator.png',
+          width: 24,
+        ),
       );
     }
 
@@ -74,27 +78,30 @@ class cartScreen extends StatelessWidget {
             width: double.infinity,
             height: 99,
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(14)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(14)),
             child: Column(
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 14),
                   child: Row(
                     children: [
-                      Image.asset('assets/images/pruduct-cart.jpg', width: 98,),
+                      Image.asset(
+                        'assets/images/pruduct-cart.jpg',
+                        width: 98,
+                      ),
                       Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
                             'Product cart',
-                            style: primaryTextStyle.copyWith(fontWeight: semibold),
+                            style:
+                                primaryTextStyle.copyWith(fontWeight: semibold),
                           ),
                           Text(
                             'lihat produkmu di keranjang ini',
-                            style: transparantTextStyle.copyWith(fontWeight: medium, fontSize: 10),
+                            style: transparantTextStyle.copyWith(
+                                fontWeight: medium, fontSize: 10),
                           ),
                           Container(
                             height: 26,
@@ -104,14 +111,13 @@ class cartScreen extends StatelessWidget {
                               onPressed: () {},
                               child: Text(
                                 'see more',
-                                style: secondaryTextStyle.copyWith(fontWeight: medium, fontSize: 10),
+                                style: secondaryTextStyle.copyWith(
+                                    fontWeight: medium, fontSize: 8),
                               ),
                               style: TextButton.styleFrom(
-                                backgroundColor: primaryColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4)
-                                )
-                              ),
+                                  backgroundColor: primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4))),
                             ),
                           )
                         ],
@@ -127,27 +133,30 @@ class cartScreen extends StatelessWidget {
             width: double.infinity,
             height: 99,
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(14)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(14)),
             child: Column(
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 14),
                   child: Row(
                     children: [
-                      Image.asset('assets/images/product-belum-lunas.jpg', width: 98,),
+                      Image.asset(
+                        'assets/images/product-belum-lunas.jpg',
+                        width: 98,
+                      ),
                       Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
                             'Product belum lunas',
-                            style: primaryTextStyle.copyWith(fontWeight: semibold),
+                            style:
+                                primaryTextStyle.copyWith(fontWeight: semibold),
                           ),
                           Text(
                             'lihat produkmu yang belum lunas disini',
-                            style: transparantTextStyle.copyWith(fontWeight: medium, fontSize: 10),
+                            style: transparantTextStyle.copyWith(
+                                fontWeight: medium, fontSize: 9),
                           ),
                           Container(
                             height: 26,
@@ -157,14 +166,13 @@ class cartScreen extends StatelessWidget {
                               onPressed: () {},
                               child: Text(
                                 'see more',
-                                style: secondaryTextStyle.copyWith(fontWeight: medium, fontSize: 10),
+                                style: secondaryTextStyle.copyWith(
+                                    fontWeight: medium, fontSize: 9),
                               ),
                               style: TextButton.styleFrom(
-                                backgroundColor: primaryColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4)
-                                )
-                              ),
+                                  backgroundColor: primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4))),
                             ),
                           )
                         ],
@@ -180,27 +188,30 @@ class cartScreen extends StatelessWidget {
             width: double.infinity,
             height: 99,
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(14)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(14)),
             child: Column(
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 14),
                   child: Row(
                     children: [
-                      Image.asset('assets/images/product-sudah-lunas.jpg', width: 90,),
+                      Image.asset(
+                        'assets/images/product-sudah-lunas.jpg',
+                        width: 90,
+                      ),
                       Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
                             'Product sudah lunas',
-                            style: primaryTextStyle.copyWith(fontWeight: semibold),
+                            style:
+                                primaryTextStyle.copyWith(fontWeight: semibold),
                           ),
                           Text(
                             'lihat produkmu yang sudah lunas disini',
-                            style: transparantTextStyle.copyWith(fontWeight: medium, fontSize: 10),
+                            style: transparantTextStyle.copyWith(
+                                fontWeight: medium, fontSize: 9),
                           ),
                           Container(
                             height: 26,
@@ -210,14 +221,13 @@ class cartScreen extends StatelessWidget {
                               onPressed: () {},
                               child: Text(
                                 'see more',
-                                style: secondaryTextStyle.copyWith(fontWeight: medium, fontSize: 10),
+                                style: secondaryTextStyle.copyWith(
+                                    fontWeight: medium, fontSize: 9),
                               ),
                               style: TextButton.styleFrom(
-                                backgroundColor: primaryColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4)
-                                )
-                              ),
+                                  backgroundColor: primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4))),
                             ),
                           )
                         ],
@@ -231,34 +241,33 @@ class cartScreen extends StatelessWidget {
         ],
       );
     }
-    
+
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: Text(
-          'Cart',
-          style: primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
-        ),
-      ),
-      floatingActionButton: restockValidator3(),
-      backgroundColor: backgorundColor3,
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 24),
-          child: ListView(
-            children: [
-              titleWallet(),
-              walletCard(),
-              titleMenu(),
-              menuContent()
-            ],
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: Text(
+            'Cart',
+            style: primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
           ),
         ),
-      )
-    );
+        floatingActionButton: restockValidator3(),
+        backgroundColor: backgorundColor3,
+        body: SafeArea(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 24),
+            child: ListView(
+              children: [
+                titleWallet(),
+                walletCard(),
+                titleMenu(),
+                menuContent()
+              ],
+            ),
+          ),
+        ));
   }
 }

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pos_app/model/auth_model.dart';
 import 'package:pos_app/provider/auth_provider.dart';
 import 'package:pos_app/screen/sign_in_screen.dart';
 import 'package:pos_app/screen/super_admin_screen.dart';
 import 'package:pos_app/theme.dart';
 import 'package:provider/provider.dart';
 
-class signupScreen extends StatelessWidget {
-  TextEditingController name = TextEditingController();
+class forgotScreen extends StatelessWidget {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
@@ -15,18 +13,29 @@ class signupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
-    handleSignUp() async {
-      bool result = await authProvider.register(
-        name: name.text,
+    handleForgot() async {
+      bool result = await authProvider.forgotpassword(
         email: email.text,
         password: password.text,
-        is_superadmin: "admin",
       );
       if (result) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Color(0xFF35A29F),
           content: Text(
-            'Register Berhasil',
+            'Berhasil Ubah Password',
+            textAlign: TextAlign.center,
+          ),
+        ));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => forgotScreen(),
+            ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Color(0xFFFF6969),
+          content: Text(
+            'Gagal Mengubah Password',
             textAlign: TextAlign.center,
           ),
         ));
@@ -36,7 +45,7 @@ class signupScreen extends StatelessWidget {
     Widget header() {
       return Center(
         child: Container(
-          margin: EdgeInsets.only(top: 16),
+          margin: EdgeInsets.only(top: 66),
           height: 92,
           width: 241,
           decoration: BoxDecoration(
@@ -48,57 +57,17 @@ class signupScreen extends StatelessWidget {
 
     Widget title() {
       return Container(
-        margin: EdgeInsets.only(top: 59),
+        margin: EdgeInsets.only(top: 110),
         child: Text(
-          'Join Us to Unlock\nYour Growth',
+          'Enter Your Email &\nNew Password',
           style: primaryTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
-        ),
-      );
-    }
-
-    Widget nameInput() {
-      return Container(
-        margin: EdgeInsets.only(top: 52),
-        width: 327,
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Full Name',
-                style: primaryTextStyle.copyWith(
-                  fontWeight: medium,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 8),
-                height: 45,
-                width: 283,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(width: 1)),
-                child: Center(
-                  child: Container(
-                    padding: EdgeInsets.only(left: 10),
-                    child: TextFormField(
-                      controller: name,
-                      style: primaryTextStyle,
-                      decoration: InputDecoration.collapsed(
-                          hintText: 'Your Full Name',
-                          hintStyle: transparantTextStyle),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       );
     }
 
     Widget emailInput() {
       return Container(
-        margin: EdgeInsets.only(top: 16),
+        margin: EdgeInsets.only(top: 35),
         width: 327,
         child: Center(
           child: Column(
@@ -145,7 +114,7 @@ class signupScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Password',
+                'New Password',
                 style: primaryTextStyle.copyWith(
                   fontWeight: medium,
                 ),
@@ -165,7 +134,7 @@ class signupScreen extends StatelessWidget {
                       obscureText: true,
                       style: primaryTextStyle,
                       decoration: InputDecoration.collapsed(
-                          hintText: 'Your Password',
+                          hintText: 'New Password',
                           hintStyle: transparantTextStyle),
                     ),
                   ),
@@ -177,7 +146,7 @@ class signupScreen extends StatelessWidget {
       );
     }
 
-    Widget signupButton() {
+    Widget forgotButton() {
       return Center(
         child: Container(
           height: 50,
@@ -185,10 +154,10 @@ class signupScreen extends StatelessWidget {
           margin: EdgeInsets.only(top: 30),
           child: TextButton(
             onPressed: () {
-              handleSignUp();
+              handleForgot();
             },
             child: Text(
-              'Sign Up',
+              'Reset',
               style: secondaryTextStyle.copyWith(
                   fontWeight: semibold, fontSize: 16),
             ),
@@ -220,29 +189,23 @@ class signupScreen extends StatelessWidget {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  header(),
-                  title(),
-                  nameInput(),
-                  emailInput(),
-                  passwordInput(),
-                  signupButton(),
-                  signIn()
-                ],
-              ),
-            ),
+      child: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              header(),
+              title(),
+              emailInput(),
+              passwordInput(),
+              forgotButton(),
+              signIn(),
+            ],
           ),
-        ));
+        ),
+      ),
+    ));
   }
 }

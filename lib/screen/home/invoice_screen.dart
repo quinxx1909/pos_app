@@ -20,6 +20,7 @@ class _invoiceScreenState extends State<invoiceScreen> {
   Widget build(BuildContext context) {
     Widget restockValidator4() {
       return FloatingActionButton(
+        heroTag: 'restock4',
         elevation: 0,
         onPressed: () {},
         backgroundColor: primaryColor,
@@ -52,9 +53,8 @@ class _invoiceScreenState extends State<invoiceScreen> {
                 splashFactory: NoSplash.splashFactory,
                 indicatorSize: TabBarIndicatorSize.label,
                 indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: primaryColor
-                ),
+                    borderRadius: BorderRadius.circular(50),
+                    color: primaryColor),
                 labelStyle: secondaryTextStyle.copyWith(fontWeight: medium),
                 unselectedLabelColor: Colors.black,
                 labelColor: textColor,
