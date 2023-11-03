@@ -30,9 +30,7 @@ class _productScreenState extends State<productScreen> {
     Widget content() {
       return Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          color: Colors.white
-        ),
+            borderRadius: BorderRadius.circular(14), color: Colors.white),
         width: double.infinity,
         height: 136,
         margin: EdgeInsets.only(top: 10),
@@ -41,8 +39,9 @@ class _productScreenState extends State<productScreen> {
             Container(
               width: 130,
               decoration: BoxDecoration(
-                image: DecorationImage(image: AssetImage('assets/images/cont-produk.png'), fit: BoxFit.cover)
-              ),
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/cont-produk.png'),
+                      fit: BoxFit.cover)),
             ),
             Expanded(
               child: Container(
@@ -53,7 +52,8 @@ class _productScreenState extends State<productScreen> {
                     Text(
                       'Converse chuck taylor 70s',
                       overflow: TextOverflow.ellipsis,
-                      style: primaryTextStyle.copyWith(fontWeight: semibold, fontSize: 18),
+                      style: primaryTextStyle.copyWith(
+                          fontWeight: semibold, fontSize: 18),
                     ),
                     Container(
                       width: 170,
@@ -63,17 +63,21 @@ class _productScreenState extends State<productScreen> {
                           Text(
                             'stok: 77',
                             overflow: TextOverflow.ellipsis,
-                            style: primaryTextStyle.copyWith(fontWeight: medium, fontSize: 16),
+                            style: primaryTextStyle.copyWith(
+                                fontWeight: medium, fontSize: 16),
                           ),
                           Text(
                             'Rp. 780.000',
                             overflow: TextOverflow.ellipsis,
-                            style: primaryTextStyle.copyWith(fontWeight: medium, fontSize: 16),
+                            style: primaryTextStyle.copyWith(
+                                fontWeight: medium, fontSize: 16),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 16,),
+                    SizedBox(
+                      height: 16,
+                    ),
                     Container(
                       width: 150,
                       child: Row(
@@ -86,27 +90,32 @@ class _productScreenState extends State<productScreen> {
                               dropdownColor: Colors.white,
                               borderRadius: BorderRadius.circular(8),
                               value: dropdownValue,
-                              style: primaryTextStyle.copyWith(fontWeight: medium, fontSize: 16),
+                              style: primaryTextStyle.copyWith(
+                                  fontWeight: medium, fontSize: 16),
                               onChanged: (String? newValue) {
                                 setState(() {
                                   dropdownValue = newValue ?? '';
                                 });
                               },
-                              items: _dropdownValues.map((value) => DropdownMenuItem(child: Text(value), value: value,)).toList(),
+                              items: _dropdownValues
+                                  .map((value) => DropdownMenuItem(
+                                        child: Text(value),
+                                        value: value,
+                                      ))
+                                  .toList(),
                             ),
                           ),
                           TextButton(
                             onPressed: () {},
                             child: Text(
                               'add to cart',
-                              style: secondaryTextStyle.copyWith(fontWeight: medium, fontSize: 16),
+                              style: secondaryTextStyle.copyWith(
+                                  fontWeight: medium, fontSize: 14),
                             ),
                             style: TextButton.styleFrom(
-                              backgroundColor: primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)
-                              )
-                            ),
+                                backgroundColor: primaryColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8))),
                           )
                         ],
                       ),
@@ -125,13 +134,20 @@ class _productScreenState extends State<productScreen> {
         heroTag: 'restock2',
         elevation: 0,
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => restockValidatorScreen(),));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => restockValidatorScreen(),
+              ));
         },
         backgroundColor: primaryColor,
-        child: Image.asset('assets/icons/restock-validator.png', width: 24,),
+        child: Image.asset(
+          'assets/icons/restock-validator.png',
+          width: 24,
+        ),
       );
     }
-    
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -146,9 +162,14 @@ class _productScreenState extends State<productScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => addProductScreen(),));
+              Navigator.push(context, MaterialPageRoute(builder: (c) {
+                return addProductScreen();
+              }));
             },
-            icon: Image.asset('assets/icons/add-product.png', width: 24,),
+            icon: Image.asset(
+              'assets/icons/add-product.png',
+              width: 24,
+            ),
           )
         ],
       ),

@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:pos_app/screen/restock/restock_validator_screen.dart';
 import 'package:pos_app/theme.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class homeScreen extends StatelessWidget {
+class homeScreen extends StatefulWidget {
   const homeScreen({super.key});
 
   @override
+  State<homeScreen> createState() => _homeScreenState();
+}
+
+class _homeScreenState extends State<homeScreen> {
+  late profilProvider getprofil;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getProfile();
+    super.initState();
+  }
+
+  void getProfile() async {
+    getprofil = Provider.of<profilProvider>(context, listen: false);
+    getprofil.profil = await getprofil.getProfile();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
+    void logout() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove('token');
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (c) => signinScreen()));
+    }
 
     Widget header() {
       return Container(
@@ -23,12 +50,14 @@ class homeScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Hallo',
-                    style: otherTextStyle.copyWith(fontSize: 16, fontWeight: regular),
+                    style: otherTextStyle.copyWith(
+                        fontSize: 16, fontWeight: regular),
                   ),
                   Text(
-                    'VINKCY FIRMAN PRATAMA',
+                    '${getprofil.profil.data?.name}',
                     overflow: TextOverflow.ellipsis,
-                    style: primaryTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
+                    style: primaryTextStyle.copyWith(
+                        fontSize: 20, fontWeight: semibold),
                   )
                 ],
               ),
@@ -39,13 +68,18 @@ class homeScreen extends StatelessWidget {
                   'assets/images/user.png',
                   width: 50,
                 ),
-                SizedBox(width: 18,),
+                SizedBox(
+                  width: 18,
+                ),
                 Center(
                   child: GestureDetector(
                     child: Image.asset(
                       'assets/icons/logout.png',
                       width: 18,
                     ),
+                    onTap: () {
+                      logout();
+                    },
                   ),
                 )
               ],
@@ -61,9 +95,10 @@ class homeScreen extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.only(top: 30),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          image: DecorationImage(image: AssetImage('assets/images/bg wallet.png'),fit: BoxFit.cover)
-        ),
+            borderRadius: BorderRadius.circular(24),
+            image: DecorationImage(
+                image: AssetImage('assets/images/bg wallet.png'),
+                fit: BoxFit.cover)),
         child: Container(
           margin: EdgeInsets.only(top: 30, left: 30),
           child: Column(
@@ -71,16 +106,20 @@ class homeScreen extends StatelessWidget {
             children: [
               Text(
                 'Bit Wallet',
-                style: secondaryTextStyle.copyWith(fontSize: 22, fontWeight: medium),
+                style: secondaryTextStyle.copyWith(
+                    fontSize: 22, fontWeight: medium),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Text(
                 'Balance',
                 style: secondaryTextStyle.copyWith(fontSize: 18),
               ),
               Text(
                 'Rp. 59.000.000',
-                style: secondaryTextStyle.copyWith(fontWeight: semibold, fontSize: 28),
+                style: secondaryTextStyle.copyWith(
+                    fontWeight: semibold, fontSize: 28),
               )
             ],
           ),
@@ -104,17 +143,20 @@ class homeScreen extends StatelessWidget {
         height: 177,
         margin: EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          color: Colors.white
-        ),
+            borderRadius: BorderRadius.circular(14), color: Colors.white),
         padding: EdgeInsets.only(left: 17, top: 27, right: 17),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Image.asset('assets/icons/transaksi-masuk.png', width: 30,),
-                SizedBox(width: 9,),
+                Image.asset(
+                  'assets/icons/transaksi-masuk.png',
+                  width: 30,
+                ),
+                SizedBox(
+                  width: 9,
+                ),
                 Text(
                   '2023/09/11',
                   style: primaryTextStyle.copyWith(fontWeight: medium),
@@ -126,11 +168,18 @@ class homeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             Row(
               children: [
-                Image.asset('assets/icons/transaksi-masuk.png', width: 30,),
-                SizedBox(width: 9,),
+                Image.asset(
+                  'assets/icons/transaksi-masuk.png',
+                  width: 30,
+                ),
+                SizedBox(
+                  width: 9,
+                ),
                 Text(
                   '2023/09/11',
                   style: primaryTextStyle.copyWith(fontWeight: medium),
@@ -142,11 +191,18 @@ class homeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             Row(
               children: [
-                Image.asset('assets/icons/transaksi-masuk.png', width: 30,),
-                SizedBox(width: 9,),
+                Image.asset(
+                  'assets/icons/transaksi-masuk.png',
+                  width: 30,
+                ),
+                SizedBox(
+                  width: 9,
+                ),
                 Text(
                   '2023/09/11',
                   style: primaryTextStyle.copyWith(fontWeight: medium),
@@ -158,22 +214,21 @@ class homeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Align(
               alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () {},
-                child: Text(
-                    'lihat semua transaksi',
-                    style: primaryTextStyle.copyWith(fontWeight: medium),
-                  ),
+              child: Text(
+                'lihat semua transaksi',
+                style: primaryTextStyle.copyWith(fontWeight: medium),
               ),
             )
           ],
         ),
       );
     }
-    
+
     Widget titleUangKeluar() {
       return Container(
         margin: EdgeInsets.only(top: 22),
@@ -183,24 +238,27 @@ class homeScreen extends StatelessWidget {
         ),
       );
     }
-    
+
     Widget uangKeluar() {
       return Container(
         width: double.infinity,
         height: 177,
         margin: EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          color: Colors.white
-        ),
+            borderRadius: BorderRadius.circular(14), color: Colors.white),
         padding: EdgeInsets.only(left: 17, top: 27, right: 17),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Image.asset('assets/icons/transaksi-keluar.png', width: 30,),
-                SizedBox(width: 9,),
+                Image.asset(
+                  'assets/icons/transaksi-keluar.png',
+                  width: 30,
+                ),
+                SizedBox(
+                  width: 9,
+                ),
                 Text(
                   '2023/09/11',
                   style: primaryTextStyle.copyWith(fontWeight: medium),
@@ -212,11 +270,18 @@ class homeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             Row(
               children: [
-                Image.asset('assets/icons/transaksi-keluar.png', width: 30,),
-                SizedBox(width: 9,),
+                Image.asset(
+                  'assets/icons/transaksi-keluar.png',
+                  width: 30,
+                ),
+                SizedBox(
+                  width: 9,
+                ),
                 Text(
                   '2023/09/11',
                   style: primaryTextStyle.copyWith(fontWeight: medium),
@@ -228,11 +293,18 @@ class homeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             Row(
               children: [
-                Image.asset('assets/icons/transaksi-keluar.png', width: 30,),
-                SizedBox(width: 9,),
+                Image.asset(
+                  'assets/icons/transaksi-keluar.png',
+                  width: 30,
+                ),
+                SizedBox(
+                  width: 9,
+                ),
                 Text(
                   '2023/09/11',
                   style: primaryTextStyle.copyWith(fontWeight: medium),
@@ -244,50 +316,54 @@ class homeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                  'lihat semua transaksi',
-                  style: primaryTextStyle.copyWith(fontWeight: medium),
-                ),
+                'lihat semua transaksi',
+                style: primaryTextStyle.copyWith(fontWeight: medium),
+              ),
             )
           ],
         ),
       );
     }
-    
-    Widget restockValidatorHome() {
+
+    Widget restockValidator() {
       return FloatingActionButton(
         heroTag: 'restockhome',
         elevation: 0,
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => restockValidatorScreen(),));
-        },
+        onPressed: () {},
         backgroundColor: primaryColor,
-        child: Image.asset('assets/icons/restock-validator.png', width: 24,),
+        child: Image.asset(
+          'assets/icons/restock-validator.png',
+          width: 24,
+        ),
       );
     }
-    
+
     return Scaffold(
-      backgroundColor: backgorundColor3,
-      floatingActionButton: restockValidatorHome(),
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 24),
-          child: ListView(
-            children: [
-              header(),
-              walletCard(),
-              titleUangMasuk(),
-              uangMasuk(),
-              titleUangKeluar(),
-              uangKeluar(),
-              SizedBox(height: 80,)
-            ],
+        backgroundColor: backgorundColor3,
+        floatingActionButton: restockValidator(),
+        body: SafeArea(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 24),
+            child: ListView(
+              children: [
+                header(),
+                walletCard(),
+                titleUangMasuk(),
+                uangMasuk(),
+                titleUangKeluar(),
+                uangKeluar(),
+                SizedBox(
+                  height: 20,
+                )
+              ],
+            ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }
