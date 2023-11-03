@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pos_app/screen/home/tabs/uang_keluar_screen.dart';
-import 'package:pos_app/screen/home/tabs/uang_masuk_screen.dart';
+import 'package:pos_app/screen/tabs/uang_keluar_screen.dart';
+import 'package:pos_app/screen/tabs/uang_masuk_screen.dart';
+import 'package:pos_app/screen/restock/restock_validator_screen.dart';
 import 'package:pos_app/theme.dart';
 
 class invoiceScreen extends StatefulWidget {
@@ -22,7 +23,9 @@ class _invoiceScreenState extends State<invoiceScreen> {
       return FloatingActionButton(
         heroTag: 'restock4',
         elevation: 0,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => restockValidatorScreen(),));
+        },
         backgroundColor: primaryColor,
         child: Image.asset(
           'assets/icons/restock-validator.png',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pos_app/provider/addproduct_provider.dart';
 import 'package:pos_app/provider/auth_provider.dart';
 import 'package:pos_app/provider/profil_provider.dart';
 import 'package:pos_app/screen/home/admin_screen.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => profilProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => addProductProvider(),
         ),
       ],
       child: MaterialApp(

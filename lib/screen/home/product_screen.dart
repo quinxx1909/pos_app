@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:pos_app/screen/home/add_product.dart';
+import 'package:pos_app/screen/restock/restock_validator_screen.dart';
 import 'package:pos_app/theme.dart';
 
 class productScreen extends StatefulWidget {
@@ -92,7 +94,7 @@ class _productScreenState extends State<productScreen> {
                                   fontWeight: medium, fontSize: 16),
                               onChanged: (String? newValue) {
                                 setState(() {
-                                  dropdownValue = newValue!;
+                                  dropdownValue = newValue ?? '';
                                 });
                               },
                               items: _dropdownValues
@@ -131,7 +133,13 @@ class _productScreenState extends State<productScreen> {
       return FloatingActionButton(
         heroTag: 'restock2',
         elevation: 0,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => restockValidatorScreen(),
+              ));
+        },
         backgroundColor: primaryColor,
         child: Image.asset(
           'assets/icons/restock-validator.png',
@@ -153,7 +161,11 @@ class _productScreenState extends State<productScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (c) {
+                return addProductScreen();
+              }));
+            },
             icon: Image.asset(
               'assets/icons/add-product.png',
               width: 24,

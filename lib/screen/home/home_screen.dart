@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pos_app/provider/auth_provider.dart';
 import 'package:pos_app/provider/profil_provider.dart';
+import 'package:pos_app/screen/restock/restock_validator_screen.dart';
 import 'package:pos_app/screen/sign_in_screen.dart';
 import 'package:pos_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -334,11 +334,17 @@ class _homeScreenState extends State<homeScreen> {
       );
     }
 
-    Widget restockValidatorHome() {
+    Widget restockValidator() {
       return FloatingActionButton(
         heroTag: 'restockhome',
         elevation: 0,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => restockValidatorScreen(),
+              ));
+        },
         backgroundColor: primaryColor,
         child: Image.asset(
           'assets/icons/restock-validator.png',
@@ -349,7 +355,7 @@ class _homeScreenState extends State<homeScreen> {
 
     return Scaffold(
         backgroundColor: backgorundColor3,
-        floatingActionButton: restockValidatorHome(),
+        floatingActionButton: restockValidator(),
         body: SafeArea(
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 24),
@@ -362,7 +368,7 @@ class _homeScreenState extends State<homeScreen> {
                 titleUangKeluar(),
                 uangKeluar(),
                 SizedBox(
-                  height: 80,
+                  height: 20,
                 )
               ],
             ),

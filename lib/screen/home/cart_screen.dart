@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pos_app/screen/cart/product_belum_lunas_screen.dart';
+import 'package:pos_app/screen/cart/product_cart_screen.dart';
+import 'package:pos_app/screen/cart/product_sudah_lunas_screen.dart';
+import 'package:pos_app/screen/restock/restock_validator_screen.dart';
 import 'package:pos_app/theme.dart';
 
 class cartScreen extends StatelessWidget {
@@ -61,7 +65,13 @@ class cartScreen extends StatelessWidget {
       return FloatingActionButton(
         heroTag: 'restock3',
         elevation: 0,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => restockValidatorScreen(),
+              ));
+        },
         backgroundColor: primaryColor,
         child: Image.asset(
           'assets/icons/restock-validator.png',
@@ -76,7 +86,7 @@ class cartScreen extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 12),
             width: double.infinity,
-            height: 99,
+            height: 110,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(14)),
             child: Column(
@@ -93,6 +103,9 @@ class cartScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          SizedBox(
+                            height: 8,
+                          ),
                           Text(
                             'Product cart',
                             style:
@@ -104,15 +117,21 @@ class cartScreen extends StatelessWidget {
                                 fontWeight: medium, fontSize: 10),
                           ),
                           Container(
-                            height: 26,
-                            width: 60,
+                            height: 30,
+                            width: 80,
                             margin: EdgeInsets.only(top: 22),
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => productCartScreen(),
+                                    ));
+                              },
                               child: Text(
                                 'see more',
                                 style: secondaryTextStyle.copyWith(
-                                    fontWeight: medium, fontSize: 8),
+                                    fontWeight: medium, fontSize: 10),
                               ),
                               style: TextButton.styleFrom(
                                   backgroundColor: primaryColor,
@@ -131,7 +150,7 @@ class cartScreen extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 12),
             width: double.infinity,
-            height: 99,
+            height: 110,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(14)),
             child: Column(
@@ -148,6 +167,9 @@ class cartScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          SizedBox(
+                            height: 8,
+                          ),
                           Text(
                             'Product belum lunas',
                             style:
@@ -156,18 +178,25 @@ class cartScreen extends StatelessWidget {
                           Text(
                             'lihat produkmu yang belum lunas disini',
                             style: transparantTextStyle.copyWith(
-                                fontWeight: medium, fontSize: 9),
+                                fontWeight: medium, fontSize: 10),
                           ),
                           Container(
-                            height: 26,
-                            width: 60,
+                            height: 30,
+                            width: 80,
                             margin: EdgeInsets.only(top: 22),
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          productBelumLunasScreen(),
+                                    ));
+                              },
                               child: Text(
                                 'see more',
                                 style: secondaryTextStyle.copyWith(
-                                    fontWeight: medium, fontSize: 9),
+                                    fontWeight: medium, fontSize: 10),
                               ),
                               style: TextButton.styleFrom(
                                   backgroundColor: primaryColor,
@@ -186,7 +215,7 @@ class cartScreen extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 12),
             width: double.infinity,
-            height: 99,
+            height: 110,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(14)),
             child: Column(
@@ -203,6 +232,9 @@ class cartScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          SizedBox(
+                            height: 8,
+                          ),
                           Text(
                             'Product sudah lunas',
                             style:
@@ -211,18 +243,25 @@ class cartScreen extends StatelessWidget {
                           Text(
                             'lihat produkmu yang sudah lunas disini',
                             style: transparantTextStyle.copyWith(
-                                fontWeight: medium, fontSize: 9),
+                                fontWeight: medium, fontSize: 10),
                           ),
                           Container(
-                            height: 26,
-                            width: 60,
+                            height: 30,
+                            width: 80,
                             margin: EdgeInsets.only(top: 22),
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          productSudahLunasScreen(),
+                                    ));
+                              },
                               child: Text(
                                 'see more',
                                 style: secondaryTextStyle.copyWith(
-                                    fontWeight: medium, fontSize: 9),
+                                    fontWeight: medium, fontSize: 10),
                               ),
                               style: TextButton.styleFrom(
                                   backgroundColor: primaryColor,
