@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pos_app/screen/cart/product_belum_lunas_screen.dart';
 import 'package:pos_app/screen/cart/product_cart_screen.dart';
 import 'package:pos_app/screen/cart/product_sudah_lunas_screen.dart';
+import 'package:pos_app/screen/home/add_customer.dart';
 import 'package:pos_app/screen/restock/restock_validator_screen.dart';
 import 'package:pos_app/theme.dart';
 
@@ -61,7 +62,7 @@ class cartScreen extends StatelessWidget {
       );
     }
 
-    Widget restockValidator3() {
+    Widget AddCustomer() {
       return FloatingActionButton(
         heroTag: 'restock3',
         elevation: 0,
@@ -69,13 +70,14 @@ class cartScreen extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => restockValidatorScreen(),
+                builder: (context) => AddCustomerScreen(),
               ));
         },
         backgroundColor: primaryColor,
         child: Image.asset(
-          'assets/icons/restock-validator.png',
+          'assets/icons/add.png',
           width: 24,
+          color: Colors.white,
         ),
       );
     }
@@ -293,7 +295,7 @@ class cartScreen extends StatelessWidget {
             style: primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
           ),
         ),
-        floatingActionButton: restockValidator3(),
+        floatingActionButton: AddCustomer(),
         backgroundColor: backgorundColor3,
         body: SafeArea(
           child: Container(

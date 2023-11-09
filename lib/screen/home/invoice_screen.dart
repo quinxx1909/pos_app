@@ -19,20 +19,20 @@ class _invoiceScreenState extends State<invoiceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget restockValidator4() {
-      return FloatingActionButton(
-        heroTag: 'restock4',
-        elevation: 0,
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => restockValidatorScreen(),));
-        },
-        backgroundColor: primaryColor,
-        child: Image.asset(
-          'assets/icons/restock-validator.png',
-          width: 24,
-        ),
-      );
-    }
+    // Widget restockValidator4() {
+    //   return FloatingActionButton(
+    //     heroTag: 'restock4',
+    //     elevation: 0,
+    //     onPressed: () {
+    //       Navigator.push(context, MaterialPageRoute(builder: (context) => restockValidatorScreen(),));
+    //     },
+    //     backgroundColor: primaryColor,
+    //     child: Image.asset(
+    //       'assets/icons/restock-validator.png',
+    //       width: 24,
+    //     ),
+    //   );
+    // }
 
     return DefaultTabController(
       length: 2,
@@ -49,7 +49,7 @@ class _invoiceScreenState extends State<invoiceScreen> {
                   primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
             ),
           ),
-          floatingActionButton: restockValidator4(),
+          // floatingActionButton: restockValidator4(),
           body: Column(
             children: [
               TabBar(

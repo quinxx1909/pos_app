@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pos_app/provider/addproduct_provider.dart';
 import 'package:pos_app/provider/auth_provider.dart';
+import 'package:pos_app/provider/addcart_provider.dart';
+import 'package:pos_app/provider/cart_provider.dart';
+import 'package:pos_app/provider/customer_provider.dart';
+import 'package:pos_app/provider/product_provider.dart';
 import 'package:pos_app/provider/profil_provider.dart';
 import 'package:pos_app/screen/home/admin_screen.dart';
 import 'package:pos_app/screen/home/main_home.dart';
@@ -24,7 +28,19 @@ class MyApp extends StatelessWidget {
           create: (context) => profilProvider(),
         ),
         ChangeNotifierProvider(
+          create: (context) => ProductProvider(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => addProductProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AddCartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CustomerProvider(),
         ),
       ],
       child: MaterialApp(
