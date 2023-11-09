@@ -28,19 +28,76 @@ class _addProductScreenState extends State<addProductScreen> {
     setState(() {});
   }
 
+  List<String> sizeList = [
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+  ];
+  List<bool> sizeListValue = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
+
+  Widget sizeItem() {
+    return Wrap(
+      children: List.generate(
+        sizeList.length,
+        (index) {
+          final itemValue = sizeListValue[index];
+          return InkWell(
+            onTap: () {
+              setState(() {
+                sizeListValue[index] = !sizeListValue[index];
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              margin: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+              decoration: BoxDecoration(
+                color: itemValue ? primaryColor : Colors.white,
+                border:
+                    Border.all(color: itemValue ? primaryColor : Colors.black),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                sizeList[index],
+                style: TextStyle(
+                  color: itemValue ? Colors.white : Colors.black,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     addProductProvider addProduct = Provider.of<addProductProvider>(context);
 
     handleAddProduct() async {
-      List<int> size = [40];
-      for (int i = 0; i < (addProduct.data.size?.length ?? 0); i++) {
-        size.add(39);
+      List<String> size = [];
+      for (var i = 0; i < sizeList.length; i++) {
+        if (sizeListValue[i]) {
+          size.add(sizeList[i]);
+        }
       }
       bool result = await addProduct.addProduct(
         nama_product: nama.text,
-        harga: double.parse(harga.text),
-        stok: stok.text,
+        harga: double.parse(harga.text.toString()),
+        stok: stok.text.toString(),
         size: size,
         gambar: gambar!,
       );
@@ -158,7 +215,7 @@ class _addProductScreenState extends State<addProductScreen> {
       return Container(
         margin: EdgeInsets.only(top: 8),
         width: double.infinity,
-        child: Center(
+        child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -169,46 +226,47 @@ class _addProductScreenState extends State<addProductScreen> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 6),
-                width: double.infinity,
-                child: Center(
-                  child: CustomCheckBoxGroup(
-                    unSelectedColor: Colors.white,
-                    selectedBorderColor: primaryColor,
-                    unSelectedBorderColor: Colors.black,
-                    buttonTextStyle: ButtonTextStyle(
-                        selectedColor: textColor,
-                        unSelectedColor: Colors.black,
-                        textStyle: primaryTextStyle.copyWith(fontSize: 14)),
-                    enableShape: true,
-                    shapeRadius: 6,
-                    elevation: 0,
-                    height: 26,
-                    width: 50,
-                    buttonLables: [
-                      "37",
-                      "38",
-                      "39",
-                      "40",
-                      "41",
-                      "42",
-                      "43",
-                      "44",
-                    ],
-                    buttonValuesList: [
-                      "37",
-                      "38",
-                      "39",
-                      "40",
-                      "41",
-                      "42",
-                      "43",
-                      "44",
-                    ],
-                    checkBoxButtonValues: (value) => log("value ${value}"),
-                    selectedColor: primaryColor,
-                    defaultSelected: ['37'],
-                  ),
-                ),
+                // width: double.infinity,
+                child: sizeItem(),
+                // child: Center(
+                //   child: CustomCheckBoxGroup(
+                //     unSelectedColor: Colors.white,
+                //     selectedBorderColor: primaryColor,
+                //     unSelectedBorderColor: Colors.black,
+                //     buttonTextStyle: ButtonTextStyle(
+                //         selectedColor: textColor,
+                //         unSelectedColor: Colors.black,
+                //         textStyle: primaryTextStyle.copyWith(fontSize: 14)),
+                //     enableShape: true,
+                //     shapeRadius: 6,
+                //     elevation: 0,
+                //     height: 26,
+                //     width: 50,
+                //     buttonLables: [
+                //       "37",
+                //       "38",
+                //       "39",
+                //       "40",
+                //       "41",
+                //       "42",
+                //       "43",
+                //       "44",
+                //     ],
+                //     buttonValuesList: [
+                //       "37",
+                //       "38",
+                //       "39",
+                //       "40",
+                //       "41",
+                //       "42",
+                //       "43",
+                //       "44",
+                //     ],
+                //     checkBoxButtonValues: (value) => log("value ${value}"),
+                //     selectedColor: primaryColor,
+                //     defaultSelected: ['37'],
+                //   ),
+                // ),
               )
             ],
           ),
@@ -349,6 +407,7 @@ class _addProductScreenState extends State<addProductScreen> {
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 30),
             child: ListView(
+              physics: BouncingScrollPhysics(),
               children: [
                 productPict(),
                 inputNamaProduct(),

@@ -5,21 +5,22 @@ import 'dart:convert';
 import 'package:async/async.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
+import 'package:pos_app/model/add_product_model.dart';
 import 'package:pos_app/model/product_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductService {
-  String baseurl = "http://192.168.1.12:8000/api";
+  String baseurl = "http://192.168.1.24:8000/api";
 
-  Future<productData> addProduct({
+  Future<product> addProduct({
     required String nama_product,
     required double harga,
     required String stok,
-    required List<int> size,
+    required List<String> size,
     required File gambar,
   }) async {
     var prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
+    String? token = prefs.getString("token");
     var url = '$baseurl/new_product';
     var headers = {
       'Content-Type': 'multipart/form-data',
@@ -44,9 +45,11 @@ class ProductService {
     request.fields.addAll({
       'nama_product': nama_product,
       'harga': harga.toString(),
-      'stok': stok,
-      'size': size.toString(),
+      'stok': stok
     });
+    for (int i = 0; i < size.length; i++) {
+      request.fields.addAll({'size[$i]': size[i]});
+    }
     request.files.add(multipartFile);
     request.headers.addAll(headers);
 
@@ -61,12 +64,38 @@ class ProductService {
     log("RESPONSE add product : ${response.body}");
 
     if (response.statusCode == 200) {
-      var res = productData.fromJson(jsonDecode(response.body));
+      var res = product.fromJson(jsonDecode(response.body));
 
       return res;
       log("edit data : $res");
     } else {
       throw Exception('Gagal Add Product');
+    }
+  }
+
+  Future<ProductModel> getProduk() async {
+    var prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString("token");
+
+    var url = "$baseurl/data_produk";
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    var response = await http.get(
+      Uri.parse(url),
+      headers: headers,
+    );
+
+    log('Product : ${response.body}');
+
+    if (response.statusCode == 200) {
+      var res = ProductModel.fromJson(jsonDecode(response.body));
+
+      return res;
+    } else {
+      throw Exception('Gagal Get Data');
     }
   }
 }

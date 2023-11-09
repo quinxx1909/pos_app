@@ -146,7 +146,8 @@ class _restockScreenState extends State<restockScreen> {
                     child: Row(
                       children: [
                         Text(
-                          '${selectedDate.day} ${selectedDate.month} ${selectedDate.year}',
+                          DateFormat('dd MMMM yyyy').format(selectedDate),
+                          // '${selectedDate.day}-${selectedDate.month}-${selectedDate.year}',
                           style: primaryTextStyle.copyWith(fontWeight: medium),
                         ),
                         Spacer(),
@@ -200,7 +201,10 @@ class _restockScreenState extends State<restockScreen> {
                       unSelectedColor: Colors.white,
                       selectedBorderColor: primaryColor,
                       unSelectedBorderColor: Colors.black,
-                      buttonTextStyle: ButtonTextStyle(selectedColor: textColor, unSelectedColor: Colors.black, textStyle: primaryTextStyle.copyWith(fontSize: 14)),
+                      buttonTextStyle: ButtonTextStyle(
+                          selectedColor: textColor,
+                          unSelectedColor: Colors.black,
+                          textStyle: primaryTextStyle.copyWith(fontSize: 14)),
                       enableShape: true,
                       shapeRadius: 6,
                       elevation: 0,
@@ -257,8 +261,7 @@ class _restockScreenState extends State<restockScreen> {
               margin: EdgeInsets.only(top: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(width: 1)
-              ),
+                  border: Border.all(width: 1)),
               child: Center(
                 child: Container(
                   margin: EdgeInsets.only(left: 12),
@@ -266,8 +269,7 @@ class _restockScreenState extends State<restockScreen> {
                     keyboardType: TextInputType.number,
                     style: primaryTextStyle,
                     decoration: InputDecoration.collapsed(
-                        hintText: '0',
-                        hintStyle: transparantTextStyle),
+                        hintText: '0', hintStyle: transparantTextStyle),
                   ),
                 ),
               ),
@@ -287,14 +289,13 @@ class _restockScreenState extends State<restockScreen> {
             onPressed: () {},
             child: Text(
               'Restock',
-              style: secondaryTextStyle.copyWith(fontWeight: semibold, fontSize: 16),
+              style: secondaryTextStyle.copyWith(
+                  fontWeight: semibold, fontSize: 16),
             ),
             style: TextButton.styleFrom(
-              backgroundColor: primaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50)
-              )
-            ),
+                backgroundColor: primaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50))),
           ),
         ),
       );
