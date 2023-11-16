@@ -3,11 +3,11 @@ import 'package:pos_app/model/add_customer_model.dart';
 import 'package:pos_app/service/customer_service.dart';
 
 class CustomerProvider with ChangeNotifier {
-  addCustomerModel _add = addCustomerModel();
+  CustomerModel _add = CustomerModel();
 
-  addCustomerModel get add => _add;
+  CustomerModel get add => _add;
 
-  set add(addCustomerModel add) {
+  set add(CustomerModel add) {
     _add = add;
     notifyListeners();
   }
@@ -20,7 +20,7 @@ class CustomerProvider with ChangeNotifier {
     required String tanggal_lahir,
     required String status,
   }) async {
-    addCustomerModel customer = await CustomerService().addCustomer(
+    CustomerModel customer = await CustomerService().addCustomer(
       nama: nama,
       umur: umur,
       gender: gender,
@@ -30,5 +30,11 @@ class CustomerProvider with ChangeNotifier {
     );
     add = customer;
     return true;
+  }
+
+  Future<CustomerModel> getCustomer() async {
+    CustomerModel get = await CustomerService().getCustomer();
+    add = get;
+    return get;
   }
 }

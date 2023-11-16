@@ -1,13 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:pos_app/provider/profil_provider.dart';
 import 'package:pos_app/screen/cart/product_belum_lunas_screen.dart';
 import 'package:pos_app/screen/cart/product_cart_screen.dart';
 import 'package:pos_app/screen/cart/product_sudah_lunas_screen.dart';
 import 'package:pos_app/screen/home/add_customer.dart';
 import 'package:pos_app/screen/restock/restock_validator_screen.dart';
 import 'package:pos_app/theme.dart';
+import 'package:provider/provider.dart';
 
-class cartScreen extends StatelessWidget {
+class cartScreen extends StatefulWidget {
   const cartScreen({super.key});
+
+  @override
+  State<cartScreen> createState() => _cartScreenState();
+}
+
+class _cartScreenState extends State<cartScreen> {
+  late profilProvider getprofil;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getProfile();
+    super.initState();
+  }
+
+  void getProfile() async {
+    getprofil = Provider.of<profilProvider>(context, listen: false);
+    getprofil.profil = await getprofil.getProfile();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +60,7 @@ class cartScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'VINKCY FIRMAN PRATAMA',
+                      '${getprofil.profil.data?.name}',
                       style: primaryTextStyle.copyWith(fontSize: 16),
                     ),
                     Text(

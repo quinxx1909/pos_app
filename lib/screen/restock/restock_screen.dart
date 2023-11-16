@@ -1,7 +1,14 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pos_app/provider/product_provider.dart';
+import 'package:pos_app/provider/profil_provider.dart';
+import 'package:pos_app/provider/restock_provider.dart';
 import 'package:pos_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class restockScreen extends StatefulWidget {
   const restockScreen({super.key});
@@ -11,7 +18,33 @@ class restockScreen extends StatefulWidget {
 }
 
 class _restockScreenState extends State<restockScreen> {
-  String dropdownValue = 'Converse';
+  TextEditingController tanggal = TextEditingController();
+  TextEditingController qty = TextEditingController();
+  TextEditingController size = TextEditingController();
+  late profilProvider getprofil;
+  late ProductProvider getProduk;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getProfile();
+    getInit();
+    super.initState();
+  }
+
+  void getProfile() async {
+    getprofil = Provider.of<profilProvider>(context, listen: false);
+    getprofil.profil = await getprofil.getProfile();
+    setState(() {});
+  }
+
+  void getInit() async {
+    getProduk = Provider.of<ProductProvider>(context, listen: false);
+    await getProduk.getproduct();
+    setState(() {});
+  }
+
+  var dropdownValue;
   final List<String> _dropdownValues = [
     'Converse',
     'nike',
@@ -25,8 +58,81 @@ class _restockScreenState extends State<restockScreen> {
 
   DateTime selectedDate = DateTime.now();
 
+  List<String> sizeList = [
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+  ];
+  List<bool> sizeListValue = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
+
+  Widget sizeItem() {
+    return Wrap(
+      children: List.generate(
+        sizeList.length,
+        (index) {
+          final itemValue = sizeListValue[index];
+          return InkWell(
+            onTap: () {
+              setState(() {
+                sizeListValue[index] = !sizeListValue[index];
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              margin: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+              decoration: BoxDecoration(
+                color: itemValue ? primaryColor : Colors.white,
+                border:
+                    Border.all(color: itemValue ? primaryColor : Colors.black),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                sizeList[index],
+                style: TextStyle(
+                  color: itemValue ? Colors.white : Colors.black,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    RestockProvider restockProvider = Provider.of<RestockProvider>(context);
+
+    handleRestock() async {
+      // List<String> size = [];
+      // for (var i = 0; i < sizeList.length; i++) {
+      //   if (sizeListValue[i]) {
+      //      size.add(sizeList[i]);
+      //   }
+      // }
+      bool result = await restockProvider.addRestock(
+        id: dropdownValue,
+        nama_product: '',
+        tanggal_pemesanan: tanggal.text,
+        size: size.text,
+        qty: qty.text,
+      );
+    }
+
     Widget inputNama() {
       return Container(
         margin: EdgeInsets.only(top: 29),
@@ -54,7 +160,7 @@ class _restockScreenState extends State<restockScreen> {
                       readOnly: true,
                       style: primaryTextStyle,
                       decoration: InputDecoration.collapsed(
-                          hintText: 'VINKCY FIRMAN PRATAMA',
+                          hintText: '${getprofil.profil.data?.name}',
                           hintStyle: transparantTextStyle),
                     ),
                   ),
@@ -91,23 +197,37 @@ class _restockScreenState extends State<restockScreen> {
                     margin: EdgeInsets.only(left: 12, right: 12),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
-                        isExpanded: true,
-                        icon: Icon(Icons.keyboard_arrow_down_rounded),
-                        elevation: 0,
-                        value: dropdownValue,
-                        style: primaryTextStyle.copyWith(fontWeight: medium),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValue = newValue ?? '';
-                          });
-                        },
-                        items: _dropdownValues
-                            .map((value) => DropdownMenuItem(
-                                  child: Text(value),
-                                  value: value,
-                                ))
-                            .toList(),
-                      ),
+                          hint: Text('Pilih Product yang Mau Restock'),
+                          icon: Icon(Icons.keyboard_arrow_down_rounded),
+                          elevation: 0,
+                          dropdownColor: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          value: dropdownValue,
+                          style: primaryTextStyle.copyWith(
+                              fontWeight: medium, fontSize: 16),
+                          onChanged: (value) {
+                            setState(() {
+                              // test[index] = value;
+                              dropdownValue = value;
+                            });
+                          },
+                          items: getProduk.product.data?.map(
+                            (element) {
+                              return DropdownMenuItem(
+                                child: Text('${element?.nama_product ?? "-"}'),
+                                value: element?.id ?? "-",
+                              );
+                            },
+                          ).toList()
+                          // item?.size?.map(
+                          //   (element) {
+                          //     return DropdownMenuItem(
+                          //       child: Text('${element?.size ?? "-"}'),
+                          //       value: element?.size ?? "-",
+                          //     );
+                          //   },
+                          // ).toList(),
+                          ),
                     ),
                   ),
                 ),
@@ -132,48 +252,89 @@ class _restockScreenState extends State<restockScreen> {
                 style: primaryTextStyle.copyWith(fontWeight: medium),
               ),
               Container(
+                margin: EdgeInsets.only(top: 8),
                 height: 45,
                 width: 300,
-                margin: EdgeInsets.only(top: 8),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(width: 1)),
                 child: Center(
                   child: Container(
-                    margin: EdgeInsets.only(
-                      left: 12,
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          DateFormat('dd MMMM yyyy').format(selectedDate),
-                          // '${selectedDate.day}-${selectedDate.month}-${selectedDate.year}',
-                          style: primaryTextStyle.copyWith(fontWeight: medium),
-                        ),
-                        Spacer(),
-                        IconButton(
-                          onPressed: () async {
-                            final DateTime? dataTime = await showDatePicker(
-                                context: context,
-                                initialDate: selectedDate,
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(3000));
-                            if (dataTime != null) {
-                              setState(() {
-                                selectedDate = dataTime;
-                              });
-                            }
-                          },
-                          icon: Image.asset(
-                            'assets/icons/calendar.png',
-                            width: 16,
-                          ),
-                        )
-                      ],
+                    padding: EdgeInsets.only(left: 10),
+                    child: TextFormField(
+                      decoration: InputDecoration.collapsed(hintText: ''),
+                      controller: tanggal,
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: selectedDate,
+                          firstDate: DateTime(1950),
+                          lastDate: DateTime(2101),
+                        );
+
+                        if (pickedDate != null) {
+                          log('$pickedDate');
+                          String formattedDate =
+                              DateFormat('dd MMMM yyyy').format(pickedDate);
+                          print(formattedDate);
+
+                          setState(() {
+                            tanggal.text = formattedDate;
+                            // log('${formattedDate}');
+                          });
+                        } else {
+                          print('Date is not selected');
+                        }
+                      },
                     ),
                   ),
                 ),
               )
+              // Container(
+              //   height: 45,
+              //   width: 300,
+              //   margin: EdgeInsets.only(top: 8),
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(14),
+              //       border: Border.all(width: 1)),
+              //   child: Center(
+              //     child: Container(
+              //       margin: EdgeInsets.only(
+              //         left: 12,
+              //       ),
+              //       child: Row(
+              //         children: [
+              //           TextFormField(
+              //             controller: tanggal,
+              //             // '${selectedDate.day}-${selectedDate.month}-${selectedDate.year}',
+              //             style: primaryTextStyle.copyWith(fontWeight: medium),
+              //           ),
+              //           Spacer(),
+              //           IconButton(
+              //             onPressed: () async {
+              //               final DateTime? dataTime = await showDatePicker(
+              //                   context: context,
+              //                   initialDate: selectedDate,
+              //                   firstDate: DateTime(2000),
+              //                   lastDate: DateTime(3000));
+              //               if (dataTime != null) {
+              //                 String formattedDate = DateFormat('dd MMMM yyyy')
+              //                     .format(selectedDate);
+              //                 setState(() {
+              //                   tanggal.text = formattedDate;
+              //                 });
+              //               }
+              //             },
+              //             icon: Image.asset(
+              //               'assets/icons/calendar.png',
+              //               width: 16,
+              //             ),
+              //           )
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),
@@ -193,50 +354,31 @@ class _restockScreenState extends State<restockScreen> {
                 style: primaryTextStyle.copyWith(fontWeight: medium),
               ),
               Container(
-                margin: EdgeInsets.only(top: 8),
+                height: 45,
                 width: 300,
+                margin: EdgeInsets.only(top: 8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(width: 1)),
                 child: Center(
                   child: Container(
-                    child: CustomRadioButton(
-                      unSelectedColor: Colors.white,
-                      selectedBorderColor: primaryColor,
-                      unSelectedBorderColor: Colors.black,
-                      buttonTextStyle: ButtonTextStyle(
-                          selectedColor: textColor,
-                          unSelectedColor: Colors.black,
-                          textStyle: primaryTextStyle.copyWith(fontSize: 14)),
-                      enableShape: true,
-                      shapeRadius: 6,
-                      elevation: 0,
-                      height: 26,
-                      width: 50,
-                      buttonLables: [
-                        "37",
-                        "38",
-                        "39",
-                        "40",
-                        "41",
-                        "42",
-                        "43",
-                        "44",
-                      ],
-                      buttonValues: [
-                        "37",
-                        "38",
-                        "39",
-                        "40",
-                        "41",
-                        "42",
-                        "43",
-                        "44",
-                      ],
-                      radioButtonValue: (value) => print(value),
-                      selectedColor: primaryColor,
-                      defaultSelected: "37",
+                    margin: EdgeInsets.only(left: 12),
+                    child: TextFormField(
+                      controller: size,
+                      keyboardType: TextInputType.number,
+                      style: primaryTextStyle,
+                      decoration: InputDecoration.collapsed(
+                          hintText: 'Masukkan size yang ingin direstock',
+                          hintStyle: transparantTextStyle),
                     ),
                   ),
                 ),
               )
+              // Container(
+              //   margin: EdgeInsets.only(top: 8),
+              //   width: 300,
+              //   child: sizeItem(),
+              // )
             ],
           ),
         ),
@@ -266,6 +408,7 @@ class _restockScreenState extends State<restockScreen> {
                 child: Container(
                   margin: EdgeInsets.only(left: 12),
                   child: TextFormField(
+                    controller: qty,
                     keyboardType: TextInputType.number,
                     style: primaryTextStyle,
                     decoration: InputDecoration.collapsed(
@@ -286,7 +429,9 @@ class _restockScreenState extends State<restockScreen> {
           width: 283,
           margin: EdgeInsets.only(top: 197),
           child: TextButton(
-            onPressed: () {},
+            onPressed: () async {
+              handleRestock();
+            },
             child: Text(
               'Restock',
               style: secondaryTextStyle.copyWith(

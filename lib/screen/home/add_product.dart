@@ -5,6 +5,7 @@ import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pos_app/provider/addproduct_provider.dart';
+import 'package:pos_app/screen/home/product_screen.dart';
 import 'package:pos_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -101,6 +102,16 @@ class _addProductScreenState extends State<addProductScreen> {
         size: size,
         gambar: gambar!,
       );
+      if (result) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Color(0xFF35A29F),
+          content: Text(
+            'Add Product Berhasil',
+            textAlign: TextAlign.center,
+          ),
+        ));
+        Navigator.pushNamed(context, '/product');
+      }
     }
 
     Widget productPict() {
