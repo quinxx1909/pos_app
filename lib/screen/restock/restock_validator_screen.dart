@@ -1,126 +1,180 @@
 import 'package:flutter/material.dart';
+import 'package:pos_app/provider/restock_provider.dart';
 import 'package:pos_app/theme.dart';
+import 'package:provider/provider.dart';
 
-class restockValidatorScreen extends StatelessWidget {
+class restockValidatorScreen extends StatefulWidget {
   const restockValidatorScreen({super.key});
 
   @override
+  State<restockValidatorScreen> createState() => _restockValidatorScreenState();
+}
+
+class _restockValidatorScreenState extends State<restockValidatorScreen> {
+  late RestockProvider getRestock;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getInit();
+    super.initState();
+  }
+
+  void getInit() async {
+    getRestock = Provider.of<RestockProvider>(context, listen: false);
+    var restock = await getRestock.getRestock();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final f = context.watch<RestockProvider>().restock;
 
     Widget content() {
-      return Container(
-        margin: EdgeInsets.only(top: 10),
-        height: 140,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          color: primaryColor
-        ),
-        child: Container(
-          margin: EdgeInsets.only(top: 12, left: 14, right: 14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                child: Row(
-                  children: [
-                    Text(
-                      'Converse chuck taylor 70s',
-                      style: secondaryTextStyle.copyWith(fontWeight: semibold, fontSize: 16),
-                    ),
-                    Spacer(),
-                    Text(
-                      '27/11/2023',
-                      style: secondaryTextStyle.copyWith(fontWeight: medium, fontSize: 16),
-                    )
-                  ],
-                ),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+      return ListView.builder(
+        itemCount: f.data?.length,
+        itemBuilder: (context, index) {
+          final item = f.data?[index];
+          return Container(
+            margin: EdgeInsets.only(top: 10),
+            height: 140,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14), color: primaryColor),
+            child: Container(
+              margin: EdgeInsets.only(top: 12, left: 14, right: 14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 5),
-                    child: Column(
+                    child: Row(
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              child: Text(
-                                'size\nquantity\nkode pemesanan',
-                                style: secondaryTextStyle.copyWith(fontWeight: medium, fontSize: 14),
-                              ),
-                            ),
-                            SizedBox(width: 5,),
-                            Container(
-                              child: Text(
-                                ': 37\n: 7\n: 7200',
-                                style: secondaryTextStyle.copyWith(fontWeight: medium, fontSize: 14),
-                              ),
-                            ),
-                          ],
+                        Text(
+                          '${item?.nama_product}',
+                          style: secondaryTextStyle.copyWith(
+                              fontWeight: semibold, fontSize: 16),
+                        ),
+                        Spacer(),
+                        Text(
+                          '${item?.tanggal_pemesanan}',
+                          style: secondaryTextStyle.copyWith(
+                              fontWeight: medium, fontSize: 16),
                         )
                       ],
                     ),
                   ),
-                  Spacer(),
-                  Text(
-                    'total  : 9.270.000',
-                    style: secondaryTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 5),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    'size\nquantity\nkode pemesanan',
+                                    style: secondaryTextStyle.copyWith(
+                                        fontWeight: medium, fontSize: 14),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Container(
+                                  child: Text(
+                                    ': ${item?.size}\n: ${item?.qty}\n: ${item?.purchase_id}',
+                                    style: secondaryTextStyle.copyWith(
+                                        fontWeight: medium, fontSize: 14),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        'total  : ${item?.harga}',
+                        style: secondaryTextStyle.copyWith(
+                            fontWeight: medium, fontSize: 14),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    child: Row(
+                      children: [
+                        Container(
+                          child: Text(''),
+                        ),
+                        Spacer(),
+                        Container(
+                          height: 30,
+                          width: 66,
+                          child: TextButton(
+                            onPressed: () {
+                              RestockProvider().deleteRestock(id: item!.id!);
+                              setState(() {
+                                getInit();
+                              });
+                            },
+                            style: TextButton.styleFrom(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4)),
+                                backgroundColor: cancelColor),
+                            child: Text(
+                              'cancel',
+                              style: secondaryTextStyle.copyWith(
+                                  fontWeight: medium, fontSize: 12),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          height: 30,
+                          width: 66,
+                          child: TextButton(
+                            onPressed: () async {
+                              bool result =
+                                  await RestockProvider().checkRestock(
+                                id: item!.id!,
+                                id_product: item.id_product!,
+                                qty: item.qty!,
+                                note: '',
+                                size: item.size!,
+                                status: '',
+                              );
+                              setState(() {
+                                getInit();
+                              });
+                            },
+                            style: TextButton.styleFrom(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4)),
+                                backgroundColor: Colors.white),
+                            child: Text(
+                              'accept',
+                              style: primaryTextStyle.copyWith(
+                                  fontWeight: medium, fontSize: 12),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
-              SizedBox(height: 10,),
-              Container(
-                child: Row(
-                  children: [
-                    Container(
-                      child: Text(''),
-                    ),
-                    Spacer(),
-                    Container(
-                      height: 30,
-                      width: 66,
-                      child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4)
-                          ),
-                          backgroundColor: cancelColor
-                        ),
-                        child: Text(
-                          'cancel',
-                          style: secondaryTextStyle.copyWith(fontWeight: medium, fontSize: 12),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10,),
-                    Container(
-                      height: 30,
-                      width: 66,
-                      child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4)
-                          ),
-                          backgroundColor: Colors.white
-                        ),
-                        child: Text(
-                          'accept',
-                          style: primaryTextStyle.copyWith(fontWeight: medium, fontSize: 12),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       );
     }
 
@@ -138,14 +192,7 @@ class restockValidatorScreen extends StatelessWidget {
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 24),
-          child: ListView(
-            children: [
-              content(),
-              content(),
-              content(),
-              content(),
-            ],
-          ),
+          child: content(),
         ),
       ),
     );

@@ -21,26 +21,16 @@ class productScreen extends StatefulWidget {
 class _productScreenState extends State<productScreen> {
   late ProductProvider getProduk;
 
-  String dropdownValue = '37';
+  List<String?> selectedSize = [];
+  // List<String> dropdownValues = [
+  //   '1',
+  //   '2',
+  //   '3',
+  // ];
   final List<String> _dropdownValues = [
-    '37',
-    '38',
-    '39',
-    '40',
-    '41',
-    '42',
-    '43',
-    '44',
-  ];
-  List<bool> _dropdownValue = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
+    'Adidas New Version',
+    'adidas',
+    'adidas 1',
   ];
 
   @override
@@ -52,7 +42,10 @@ class _productScreenState extends State<productScreen> {
 
   getInit() async {
     getProduk = Provider.of<ProductProvider>(context, listen: false);
-    await getProduk.getproduct();
+    var p = await getProduk.getproduct();
+    for (var i1 in p.data ?? []) {
+      selectedSize.add(null);
+    }
     setState(() {});
   }
 
@@ -70,7 +63,7 @@ class _productScreenState extends State<productScreen> {
     //   );
     // }
 
-    log('nama : ${f2.data?.first?.nama_product}');
+    // log('nama : ${f2.data?.first?.nama_product}');
     Widget content() {
       return ListView.builder(
         itemCount: f2.data?.length,
@@ -92,7 +85,7 @@ class _productScreenState extends State<productScreen> {
                           bottomLeft: Radius.circular(14)),
                       image: DecorationImage(
                           image: NetworkImage(
-                              'http://192.168.1.24:8000/gambar/${item?.gambar}'),
+                              'http://192.168.1.23:8000/gambar/${item?.gambar}'),
                           fit: BoxFit.cover)),
                 ),
                 Expanded(
@@ -134,34 +127,40 @@ class _productScreenState extends State<productScreen> {
                           width: 150,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: <Widget>[
                               DropdownButtonHideUnderline(
                                 child: DropdownButton(
+                                  hint: Text('Size'),
                                   icon: Icon(Icons.keyboard_arrow_down_rounded),
                                   elevation: 0,
                                   dropdownColor: Colors.white,
                                   borderRadius: BorderRadius.circular(8),
-                                  value: dropdownValue,
+                                  value: selectedSize[index],
                                   style: primaryTextStyle.copyWith(
                                       fontWeight: medium, fontSize: 16),
-                                  onChanged: (String? newValue) {
+                                  onChanged: (value) {
                                     setState(() {
-                                      dropdownValue = newValue ?? '';
+                                      selectedSize[index] = value;
+                                      // _dropdownValues[index] = value.toString();
+                                      // dropdownValue = value;
                                     });
                                   },
-                                  items: _dropdownValues
-                                      .map((value) => DropdownMenuItem(
-                                            child: Text(value),
-                                            value: value,
-                                          ))
-                                      .toList(),
+                                  // items: productProvider.product.data?.map(
+                                  items: item?.size?.map(
+                                    (element) {
+                                      return DropdownMenuItem(
+                                        child: Text('${element?.size ?? "-"}'),
+                                        value: element?.size ?? "-",
+                                      );
+                                    },
+                                  ).toList(),
                                 ),
                               ),
                               TextButton(
                                 onPressed: () async {
                                   bool result = await cartProvider.addToCart(
                                     id_product: item!.id!,
-                                    ukuransepatu: '37',
+                                    ukuransepatu: selectedSize[index] ?? "",
                                   );
                                 },
                                 child: Text(
@@ -189,24 +188,24 @@ class _productScreenState extends State<productScreen> {
       );
     }
 
-    // Widget restockValidator2() {
-    //   return FloatingActionButton(
-    //     heroTag: 'restock2',
-    //     elevation: 0,
-    //     onPressed: () {
-    //       Navigator.push(
-    //           context,
-    //           MaterialPageRoute(
-    //             builder: (context) => restockValidatorScreen(),
-    //           ));
-    //     },
-    //     backgroundColor: primaryColor,
-    //     child: Image.asset(
-    //       'assets/icons/restock-validator.png',
-    //       width: 24,
-    //     ),
-    //   );
-    // }
+    Widget restockValidator2() {
+      return FloatingActionButton(
+        heroTag: 'restock2',
+        elevation: 0,
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => restockValidatorScreen(),
+              ));
+        },
+        backgroundColor: primaryColor,
+        child: Image.asset(
+          'assets/icons/restock-validator.png',
+          width: 24,
+        ),
+      );
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -234,9 +233,11 @@ class _productScreenState extends State<productScreen> {
           ],
         ),
         backgroundColor: backgorundColor3,
-        // floatingActionButton: restockValidator2(),
+        floatingActionButton: restockValidator2(),
         body: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20), child: content())
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: f2.data?.length == 0 ? SizedBox() : content(),
+        )
         // Container(
         //   margin: EdgeInsets.symmetric(horizontal: 20),
         //   child: Column(

@@ -3,11 +3,14 @@ import 'package:pos_app/provider/addproduct_provider.dart';
 import 'package:pos_app/provider/auth_provider.dart';
 import 'package:pos_app/provider/addcart_provider.dart';
 import 'package:pos_app/provider/cart_provider.dart';
+import 'package:pos_app/provider/checkout_provider.dart';
 import 'package:pos_app/provider/customer_provider.dart';
 import 'package:pos_app/provider/product_provider.dart';
 import 'package:pos_app/provider/profil_provider.dart';
+import 'package:pos_app/provider/restock_provider.dart';
 import 'package:pos_app/screen/home/admin_screen.dart';
 import 'package:pos_app/screen/home/main_home.dart';
+import 'package:pos_app/screen/home/product_screen.dart';
 import 'package:pos_app/screen/sign_in_screen.dart';
 import 'package:pos_app/screen/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +45,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => CustomerProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => RestockProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CheckOutProvider(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -53,6 +62,7 @@ class MyApp extends StatelessWidget {
           '/sign-in': (context) => signinScreen(),
           '/admin': (context) => AdminScreen(),
           '/home': (context) => mainHome(),
+          '/product': (context) => productScreen(),
         },
       ),
     );

@@ -234,6 +234,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                   child: Container(
                     padding: EdgeInsets.only(left: 10),
                     child: TextFormField(
+                      decoration: InputDecoration.collapsed(hintText: ''),
                       controller: tanggal_lahir,
                       onTap: () async {
                         DateTime? pickedDate = await showDatePicker(
@@ -246,7 +247,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                         if (pickedDate != null) {
                           print(pickedDate);
                           String formattedDate =
-                              DateFormat('dd MMMM yyyy').format(selectedDate);
+                              DateFormat('dd MMMM yyyy').format(pickedDate);
                           print(formattedDate);
 
                           setState(() {

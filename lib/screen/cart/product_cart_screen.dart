@@ -1,7 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pos_app/provider/cart_provider.dart';
+import 'package:pos_app/provider/checkout_provider.dart';
+import 'package:pos_app/provider/customer_provider.dart';
 import 'package:pos_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +14,10 @@ class productCartScreen extends StatefulWidget {
 }
 
 class _productCartScreenState extends State<productCartScreen> {
+  TextEditingController tanggal = TextEditingController();
   late CartProvider getCart;
+  late CustomerProvider customer;
+  var dropdownValue;
 
   List product = [
     '1',
@@ -25,6 +31,7 @@ class _productCartScreenState extends State<productCartScreen> {
   void initState() {
     // TODO: implement initState
     getInit();
+    getCustomer();
     super.initState();
   }
 
@@ -34,9 +41,41 @@ class _productCartScreenState extends State<productCartScreen> {
     setState(() {});
   }
 
+  getCustomer() async {
+    customer = Provider.of<CustomerProvider>(context, listen: false);
+    var c = await customer.getCustomer();
+    setState(() {});
+  }
+
+  DateTime selectedDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
+    CheckOutProvider checkOut = Provider.of<CheckOutProvider>(context);
     final f1 = context.watch<CartProvider>().cart;
+
+    handleCheckout() async {
+      List<int> listId = [];
+      for (var i = 0; i < (f1.data?.length ?? 0); i++) {
+        listId.add(f1.data![i]!.id!);
+      }
+
+      if (await checkOut.checkout(
+        keranjang_id: f1.data!.first!.id!,
+        tanggal_pemesanan: tanggal.text,
+        nama: dropdownValue,
+        listId: listId,
+      )) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.blue,
+          content: Text(
+            'Checkout Success',
+            textAlign: TextAlign.center,
+          ),
+          duration: Duration(seconds: 1),
+        ));
+      }
+    }
 
     Future printButton() {
       return showDialog(
@@ -67,10 +106,78 @@ class _productCartScreenState extends State<productCartScreen> {
                 child: Center(
                   child: Container(
                     margin: EdgeInsets.only(left: 12),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                          hint: Text('Pilih Product yang Mau Restock'),
+                          icon: Icon(Icons.keyboard_arrow_down_rounded),
+                          elevation: 0,
+                          dropdownColor: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          value: dropdownValue,
+                          style: primaryTextStyle.copyWith(
+                              fontWeight: medium, fontSize: 16),
+                          onChanged: (value) {
+                            setState(() {
+                              dropdownValue = value;
+                            });
+                          },
+                          items: customer.add.data?.map(
+                            (element) {
+                              return DropdownMenuItem(
+                                child: Text('${element?.nama ?? "-"}'),
+                                value: element?.nama!,
+                              );
+                            },
+                          ).toList()),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Masukkan Tanggal Pemesanan',
+                style:
+                    primaryTextStyle.copyWith(fontWeight: medium, fontSize: 18),
+              ),
+            ),
+            Center(
+              child: Container(
+                height: 45,
+                width: 282,
+                margin: EdgeInsets.only(top: 8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(width: 1)),
+                child: Center(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 12),
                     child: TextFormField(
-                      style: primaryTextStyle,
-                      decoration: InputDecoration.collapsed(
-                          hintText: '', hintStyle: transparantTextStyle),
+                      decoration: InputDecoration.collapsed(hintText: ''),
+                      controller: tanggal,
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: selectedDate,
+                          firstDate: DateTime(1950),
+                          lastDate: DateTime(2101),
+                        );
+
+                        if (pickedDate != null) {
+                          log('$pickedDate');
+                          String formattedDate =
+                              DateFormat('dd MMMM yyyy').format(pickedDate);
+                          print(formattedDate);
+
+                          setState(() {
+                            tanggal.text = formattedDate;
+                            // log('${formattedDate}');
+                          });
+                        } else {
+                          print('Date is not selected');
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -82,7 +189,9 @@ class _productCartScreenState extends State<productCartScreen> {
                 width: 140,
                 margin: EdgeInsets.only(left: 12, right: 12, top: 48),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    handleCheckout();
+                  },
                   child: Text(
                     'continue',
                     style: secondaryTextStyle.copyWith(
@@ -155,7 +264,7 @@ class _productCartScreenState extends State<productCartScreen> {
                             topRight: Radius.circular(14)),
                         image: DecorationImage(
                             image: NetworkImage(
-                                'http://192.168.1.24:8000/gambar/${item?.gambar}'),
+                                'http://192.168.1.23:8000/gambar/${item?.gambar}'),
                             fit: BoxFit.cover)),
                   ),
                   Container(

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartService {
-  String baseurl = "http://192.168.1.24:8000/api";
+  String baseurl = "http://192.168.1.23:8000/api";
 
   Future<CartModelData> addToCart({
     required int id_product,
@@ -60,6 +60,7 @@ class CartService {
 
     if (response.statusCode == 200) {
       var res = CartModel.fromJson(jsonDecode(response.body));
+      log('res : $res');
 
       return res;
     } else {
