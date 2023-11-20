@@ -5,7 +5,9 @@ import 'package:pos_app/provider/addcart_provider.dart';
 import 'package:pos_app/provider/cart_provider.dart';
 import 'package:pos_app/provider/checkout_provider.dart';
 import 'package:pos_app/provider/customer_provider.dart';
+import 'package:pos_app/provider/product_belum_lunas_provider.dart';
 import 'package:pos_app/provider/product_provider.dart';
+import 'package:pos_app/provider/product_sudah_lunas_provider.dart';
 import 'package:pos_app/provider/profil_provider.dart';
 import 'package:pos_app/provider/restock_provider.dart';
 import 'package:pos_app/screen/home/admin_screen.dart';
@@ -50,6 +52,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => CheckOutProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductBelumLunasProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductSudahLunasProvider(),
         ),
       ],
       child: MaterialApp(
