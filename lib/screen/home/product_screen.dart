@@ -85,7 +85,7 @@ class _productScreenState extends State<productScreen> {
                           bottomLeft: Radius.circular(14)),
                       image: DecorationImage(
                           image: NetworkImage(
-                              'http://192.168.1.23:8000/gambar/${item?.gambar}'),
+                              'http://192.168.1.25:8000/gambar/${item?.gambar}'),
                           fit: BoxFit.cover)),
                 ),
                 Expanded(

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RestockService {
-  String baseurl = "http://192.168.1.23:8000/api";
+  String baseurl = "http://192.168.1.25:8000/api";
 
   Future<Restock> addRestock({
     required int id,

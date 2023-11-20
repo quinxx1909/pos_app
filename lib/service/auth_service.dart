@@ -7,7 +7,7 @@ import 'package:pos_app/model/profil_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  String baseurl = "http://192.168.1.23:8000/api";
+  String baseurl = "http://192.168.1.25:8000/api";
 
   Future<AuthData> register({
     required String name,

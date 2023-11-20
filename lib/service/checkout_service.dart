@@ -6,7 +6,7 @@ import 'package:pos_app/model/checkout_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckoutService {
-  String baseurl = "http://192.168.1.23:8000/api";
+  String baseurl = "http://192.168.1.25:8000/api";
 
   Future<CheckoutModelData> checkout({
     required int keranjang_id,
