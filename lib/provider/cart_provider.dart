@@ -19,7 +19,6 @@ class CartProvider with ChangeNotifier {
   Future<CartModel> getcart() async {
     // try {
     CartModel cartModel = await CartService().getCart();
-    log("Nama Product : ${cartModel.data?.first?.nama}");
     cart = cartModel;
     return cartModel;
     // } catch (e) {

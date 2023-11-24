@@ -10,7 +10,7 @@ import 'package:pos_app/model/product_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductService {
-  String baseurl = "http://192.168.1.25:8000/api";
+  String baseurl = "http://192.168.1.15:8000/api";
 
   Future<product> addProduct({
     required String nama_product,

@@ -356,21 +356,26 @@ class _homeScreenState extends State<homeScreen> {
     return Scaffold(
         backgroundColor: backgorundColor3,
         floatingActionButton: restockValidator(),
-        body: SafeArea(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 24),
-            child: ListView(
-              children: [
-                header(),
-                walletCard(),
-                titleUangMasuk(),
-                uangMasuk(),
-                titleUangKeluar(),
-                uangKeluar(),
-                SizedBox(
-                  height: 20,
-                )
-              ],
+        body: WillPopScope(
+          onWillPop: () {
+            return Future.value(false);
+          },
+          child: SafeArea(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 24),
+              child: ListView(
+                children: [
+                  header(),
+                  walletCard(),
+                  titleUangMasuk(),
+                  uangMasuk(),
+                  titleUangKeluar(),
+                  uangKeluar(),
+                  SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
             ),
           ),
         ));

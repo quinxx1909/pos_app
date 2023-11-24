@@ -56,14 +56,6 @@ class _productScreenState extends State<productScreen> {
     // final f1 = context.watch<addProductProvider>().data;
     final f2 = context.watch<ProductProvider>().product;
 
-    // handleAddToCart() async {
-    //   bool result = await cartProvider.addToCart(
-    //     id_product: 63,
-    //     ukuransepatu: '37',
-    //   );
-    // }
-
-    // log('nama : ${f2.data?.first?.nama_product}');
     Widget content() {
       return ListView.builder(
         itemCount: f2.data?.length,
@@ -85,7 +77,7 @@ class _productScreenState extends State<productScreen> {
                           bottomLeft: Radius.circular(14)),
                       image: DecorationImage(
                           image: NetworkImage(
-                              'http://192.168.1.25:8000/gambar/${item?.gambar}'),
+                              'http://192.168.1.15:8000/gambar/${item?.gambar}'),
                           fit: BoxFit.cover)),
                 ),
                 Expanded(
@@ -234,9 +226,14 @@ class _productScreenState extends State<productScreen> {
         ),
         backgroundColor: backgorundColor3,
         floatingActionButton: restockValidator2(),
-        body: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          child: f2.data?.length == 0 ? SizedBox() : content(),
+        body: WillPopScope(
+          onWillPop: () {
+            return Future.value(false);
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: content(),
+          ),
         )
         // Container(
         //   margin: EdgeInsets.symmetric(horizontal: 20),

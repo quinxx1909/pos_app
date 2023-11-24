@@ -210,7 +210,6 @@ class _productCartScreenState extends State<productCartScreen> {
       );
     }
 
-    log('nama : ${f1.data?.first?.nama}');
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -244,7 +243,7 @@ class _productCartScreenState extends State<productCartScreen> {
               crossAxisSpacing: 10,
               mainAxisExtent: 190),
           itemBuilder: (context, index) {
-            final item = f1.data?[index];
+            final item = f1.data![index];
             return Container(
               height: 176,
               width: 155,
@@ -264,7 +263,7 @@ class _productCartScreenState extends State<productCartScreen> {
                             topRight: Radius.circular(14)),
                         image: DecorationImage(
                             image: NetworkImage(
-                                'http://192.168.1.23:8000/gambar/${item?.gambar}'),
+                                'http://192.168.1.15:8000/gambar/${item?.gambar}'),
                             fit: BoxFit.cover)),
                   ),
                   Container(

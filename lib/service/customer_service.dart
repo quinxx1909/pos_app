@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomerService {
-  String baseurl = "http://192.168.1.25:8000/api";
+  String baseurl = "http://192.168.1.15:8000/api";
 
   Future<CustomerModel> addCustomer({
     required String nama,

@@ -319,16 +319,21 @@ class _cartScreenState extends State<cartScreen> {
         ),
         floatingActionButton: AddCustomer(),
         backgroundColor: backgorundColor3,
-        body: SafeArea(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 24),
-            child: ListView(
-              children: [
-                titleWallet(),
-                walletCard(),
-                titleMenu(),
-                menuContent()
-              ],
+        body: WillPopScope(
+          onWillPop: () {
+            return Future.value(false);
+          },
+          child: SafeArea(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 24),
+              child: ListView(
+                children: [
+                  titleWallet(),
+                  walletCard(),
+                  titleMenu(),
+                  menuContent()
+                ],
+              ),
             ),
           ),
         ));
