@@ -17,7 +17,6 @@ class ProductProvider with ChangeNotifier {
   Future<ProductModel> getproduct() async {
     // try {
     ProductModel dataa = await ProductService().getProduk();
-    log("Nama Product : ${dataa.data?.first?.nama_product}");
     product = dataa;
     return dataa;
     // } catch (e) {

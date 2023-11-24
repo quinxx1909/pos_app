@@ -10,6 +10,8 @@ import 'package:pos_app/provider/product_provider.dart';
 import 'package:pos_app/provider/product_sudah_lunas_provider.dart';
 import 'package:pos_app/provider/profil_provider.dart';
 import 'package:pos_app/provider/restock_provider.dart';
+import 'package:pos_app/provider/uang_keluar_provider.dart';
+import 'package:pos_app/provider/uang_masuk_provider.dart';
 import 'package:pos_app/screen/home/admin_screen.dart';
 import 'package:pos_app/screen/home/main_home.dart';
 import 'package:pos_app/screen/home/product_screen.dart';
@@ -58,6 +60,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => ProductSudahLunasProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UangKeluarProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UangMasukProvider(),
         ),
       ],
       child: MaterialApp(

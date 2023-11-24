@@ -40,7 +40,6 @@ class _productBelumLunasScreenState extends State<productBelumLunasScreen> {
   Widget build(BuildContext context) {
     final f1 = context.watch<ProductBelumLunasProvider>().add;
 
-    log('Nama : ${f1.data?.length}');
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -83,7 +82,7 @@ class _productBelumLunasScreenState extends State<productBelumLunasScreen> {
                             topRight: Radius.circular(14)),
                         image: DecorationImage(
                             image: NetworkImage(
-                                'http://192.168.1.25:8000/gambar/${item?.gambar}'),
+                                'http://192.168.1.15:8000/gambar/${item?.gambar}'),
                             fit: BoxFit.cover)),
                   ),
                   Container(
@@ -108,6 +107,9 @@ class _productBelumLunasScreenState extends State<productBelumLunasScreen> {
                                 await ProductSudahLunasProvider().addLunas(
                               order_id: item!.orderId!,
                             );
+                            setState(() {
+                              getInit();
+                            });
                           },
                           child: Text(
                             'Lunas',

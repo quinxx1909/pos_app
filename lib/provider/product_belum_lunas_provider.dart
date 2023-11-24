@@ -18,7 +18,6 @@ class ProductBelumLunasProvider with ChangeNotifier {
 
   Future<BelumLunasModel> getProduk() async {
     BelumLunasModel get = await ProductBelumLunasService().getProduk();
-    log('Nama Produk : ${get.data?.first?.namaProduct}');
     _add = get;
     return get;
   }

@@ -17,9 +17,14 @@ class signinScreen extends StatelessWidget {
     handleLogin() async {
       if (await authProvider.login(
           email: email.text, password: password.text)) {
-        if (email.text == 'superadmin@gmail.com' && password.text == '1') {
-          Navigator.pushReplacementNamed(context, '/admin');
-        } else if (email.text == email.text && password.text == password.text) {
+        if (email.text == email.text && password.text == password.text) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Color(0xFF35A29F),
+            content: Text(
+              'Berhasil Login',
+              textAlign: TextAlign.center,
+            ),
+          ));
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return mainHome();
           }));

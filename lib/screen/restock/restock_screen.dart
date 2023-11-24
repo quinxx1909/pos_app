@@ -261,31 +261,41 @@ class _restockScreenState extends State<restockScreen> {
                 child: Center(
                   child: Container(
                     padding: EdgeInsets.only(left: 10),
-                    child: TextFormField(
-                      decoration: InputDecoration.collapsed(hintText: ''),
-                      controller: tanggal,
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: selectedDate,
-                          firstDate: DateTime(1950),
-                          lastDate: DateTime(2101),
-                        );
+                    child: Row(
+                      children: [
+                        TextFormField(
+                          decoration: InputDecoration.collapsed(hintText: ''),
+                          controller: tanggal,
+                          onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: selectedDate,
+                              firstDate: DateTime(1950),
+                              lastDate: DateTime(2101),
+                            );
 
-                        if (pickedDate != null) {
-                          log('$pickedDate');
-                          String formattedDate =
-                              DateFormat('dd MMMM yyyy').format(pickedDate);
-                          print(formattedDate);
+                            if (pickedDate != null) {
+                              log('$pickedDate');
+                              String formattedDate =
+                                  DateFormat('dd MMMM yyyy').format(pickedDate);
+                              print(formattedDate);
 
-                          setState(() {
-                            tanggal.text = formattedDate;
-                            // log('${formattedDate}');
-                          });
-                        } else {
-                          print('Date is not selected');
-                        }
-                      },
+                              setState(() {
+                                tanggal.text = formattedDate;
+                                // log('${formattedDate}');
+                              });
+                            } else {
+                              print('Date is not selected');
+                            }
+                          },
+                        ),
+                        Center(
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Image.asset('assets/icons/calendar.png'),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
