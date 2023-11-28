@@ -41,16 +41,6 @@ class _productBelumLunasScreenState extends State<productBelumLunasScreen> {
     final f1 = context.watch<ProductBelumLunasProvider>().add;
 
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Text(
-          'Product Belum Lunas',
-          style: primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
-        ),
-      ),
       backgroundColor: backgorundColor3,
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
@@ -82,7 +72,7 @@ class _productBelumLunasScreenState extends State<productBelumLunasScreen> {
                             topRight: Radius.circular(14)),
                         image: DecorationImage(
                             image: NetworkImage(
-                                'http://192.168.1.15:8000/gambar/${item?.gambar}'),
+                                'http://192.168.1.22:8000/gambar/${item?.gambar}'),
                             fit: BoxFit.cover)),
                   ),
                   Container(

@@ -7,7 +7,7 @@ import 'package:pos_app/model/uang_masuk_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UangMasukService {
-  String baseUrl = 'http://192.168.1.15:8000/api';
+  String baseUrl = 'http://192.168.1.22:8000/api';
 
   Future<UangMasukModel> getUangMasuk() async {
     var prefs = await SharedPreferences.getInstance();

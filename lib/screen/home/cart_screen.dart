@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pos_app/provider/profil_provider.dart';
-import 'package:pos_app/screen/cart/product_belum_lunas_screen.dart';
+import 'package:pos_app/screen/cart/transaction_screen.dart';
+import 'package:pos_app/screen/tabs/product_belum_lunas_screen.dart';
 import 'package:pos_app/screen/cart/product_cart_screen.dart';
-import 'package:pos_app/screen/cart/product_sudah_lunas_screen.dart';
+import 'package:pos_app/screen/tabs/product_sudah_lunas_screen.dart';
 import 'package:pos_app/screen/home/add_customer.dart';
 import 'package:pos_app/screen/restock/restock_validator_screen.dart';
 import 'package:pos_app/theme.dart';
@@ -119,9 +120,12 @@ class _cartScreenState extends State<cartScreen> {
                   margin: EdgeInsets.symmetric(horizontal: 14),
                   child: Row(
                     children: [
-                      Image.asset(
-                        'assets/images/pruduct-cart.jpg',
-                        width: 98,
+                      Container(
+                        height: 110,
+                        child: Image.asset(
+                          'assets/images/pruduct-cart.jpg',
+                          width: 120,
+                        ),
                       ),
                       Spacer(),
                       Column(
@@ -142,7 +146,9 @@ class _cartScreenState extends State<cartScreen> {
                             width: 80,
                             margin: EdgeInsets.only(top: 22),
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => productCartScreen(),));
+                              },
                               child: Text(
                                 'see more',
                                 style: secondaryTextStyle.copyWith(
@@ -174,21 +180,24 @@ class _cartScreenState extends State<cartScreen> {
                   margin: EdgeInsets.symmetric(horizontal: 14),
                   child: Row(
                     children: [
-                      Image.asset(
-                        'assets/images/product-belum-lunas.jpg',
-                        width: 98,
+                      Container(
+                        height: 110,
+                        child: Image.asset(
+                          'assets/images/product-sudah-lunas.jpg',
+                          width: 120,
+                        ),
                       ),
                       Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            'Product belum lunas',
+                            'Transaction',
                             style:
                                 primaryTextStyle.copyWith(fontWeight: semibold),
                           ),
                           Text(
-                            'lihat produkmu yang belum lunas disini',
+                            'lihat transaksimu disini',
                             style: transparantTextStyle.copyWith(
                                 fontWeight: medium, fontSize: 10),
                           ),
@@ -197,7 +206,9 @@ class _cartScreenState extends State<cartScreen> {
                             width: 80,
                             margin: EdgeInsets.only(top: 22),
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => transactionScreen(),));
+                              },
                               child: Text(
                                 'see more',
                                 style: secondaryTextStyle.copyWith(
@@ -229,21 +240,24 @@ class _cartScreenState extends State<cartScreen> {
                   margin: EdgeInsets.symmetric(horizontal: 14),
                   child: Row(
                     children: [
-                      Image.asset(
-                        'assets/images/product-sudah-lunas.jpg',
-                        width: 90,
+                      Container(
+                        height: 110,
+                        child: Image.asset(
+                          'assets/images/customer.jpg',
+                          width: 120,
+                        ),
                       ),
                       Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            'Product sudah lunas',
+                            'List Customer',
                             style:
                                 primaryTextStyle.copyWith(fontWeight: semibold),
                           ),
                           Text(
-                            'lihat produkmu yang sudah lunas disini',
+                            'daftar customermu ada disini',
                             style: transparantTextStyle.copyWith(
                                 fontWeight: medium, fontSize: 10),
                           ),

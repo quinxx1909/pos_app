@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartService {
-  String baseurl = "http://192.168.1.15:8000/api";
+  String baseurl = "http://192.168.1.22:8000/api";
 
   Future<CartModelData> addToCart({
     required int id_product,

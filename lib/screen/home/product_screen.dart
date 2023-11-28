@@ -70,14 +70,14 @@ class _productScreenState extends State<productScreen> {
             child: Row(
               children: [
                 Container(
-                  width: 130,
+                  margin: EdgeInsets.only(left: 10),
+                  width: 120,
+                  height: 120,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(14),
-                          bottomLeft: Radius.circular(14)),
+                      borderRadius: BorderRadius.circular(14),
                       image: DecorationImage(
                           image: NetworkImage(
-                              'http://192.168.1.15:8000/gambar/${item?.gambar}'),
+                              'http://192.168.1.22:8000/gambar/${item?.gambar}'),
                           fit: BoxFit.cover)),
                 ),
                 Expanded(

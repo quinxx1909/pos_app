@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class ProductBelumLunasService {
-  String baseurl = "http://192.168.1.15:8000/api";
+  String baseurl = "http://192.168.1.22:8000/api";
 
   Future<BelumLunasModel> getProduk() async {
     var prefs = await SharedPreferences.getInstance();

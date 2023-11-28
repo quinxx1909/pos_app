@@ -12,14 +12,6 @@ class productSudahLunasScreen extends StatefulWidget {
 class _productSudahLunasScreenState extends State<productSudahLunasScreen> {
   late ProductSudahLunasProvider getProduct;
 
-  List product = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-  ];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -38,19 +30,9 @@ class _productSudahLunasScreenState extends State<productSudahLunasScreen> {
     final f1 = context.watch<ProductSudahLunasProvider>().sudah;
 
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Text(
-          'Product Sudah Lunas',
-          style: primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
-        ),
-      ),
       backgroundColor: backgorundColor3,
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
+        margin: EdgeInsets.only(top: 18, right: 20, left: 20),
         child: GridView.builder(
           itemCount: f1.data?.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -79,7 +61,7 @@ class _productSudahLunasScreenState extends State<productSudahLunasScreen> {
                             topRight: Radius.circular(14)),
                         image: DecorationImage(
                             image: NetworkImage(
-                                'http://192.168.1.15:8000/gambar/${item?.gambar}'),
+                                'http://192.168.1.22:8000/gambar/${item?.gambar}'),
                             fit: BoxFit.cover)),
                   ),
                   Container(

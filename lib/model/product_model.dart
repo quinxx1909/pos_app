@@ -21,6 +21,7 @@ class ProductModelDataSize {
   String? id_product;
   String? size;
   String? stok;
+  int? price;
   String? status;
   String? created_at;
   String? updated_at;
@@ -31,6 +32,7 @@ class ProductModelDataSize {
     this.id_product,
     this.size,
     this.stok,
+    this.price,
     this.status,
     this.created_at,
     this.updated_at,
@@ -41,6 +43,7 @@ class ProductModelDataSize {
     id_product = json['id_product']?.toString();
     size = json['size']?.toString();
     stok = json['stok']?.toString();
+    price = json['price']?.toInt();
     status = json['status']?.toString();
     created_at = json['created_at']?.toString();
     updated_at = json['updated_at']?.toString();
@@ -52,6 +55,7 @@ class ProductModelDataSize {
     data['id_product'] = id_product;
     data['size'] = size;
     data['stok'] = stok;
+    data['price'] = price;
     data['status'] = status;
     data['created_at'] = created_at;
     data['updated_at'] = updated_at;

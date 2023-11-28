@@ -241,11 +241,11 @@ class _productCartScreenState extends State<productCartScreen> {
               crossAxisCount: 2,
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              mainAxisExtent: 190),
+              mainAxisExtent: 244),
           itemBuilder: (context, index) {
             final item = f1.data![index];
             return Container(
-              height: 176,
+              height: 204,
               width: 155,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
@@ -263,21 +263,39 @@ class _productCartScreenState extends State<productCartScreen> {
                             topRight: Radius.circular(14)),
                         image: DecorationImage(
                             image: NetworkImage(
-                                'http://192.168.1.15:8000/gambar/${item?.gambar}'),
+                                'http://192.168.1.22:8000/gambar/${item?.gambar}'),
                             fit: BoxFit.cover)),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 12, right: 12, top: 8),
                     width: double.infinity,
-                    child: Text(
-                      '${item?.nama}',
-                      style: primaryTextStyle.copyWith(
-                          fontWeight: medium, fontSize: 18),
-                      overflow: TextOverflow.ellipsis,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${item?.nama}',
+                          style: primaryTextStyle.copyWith(
+                              fontWeight: medium, fontSize: 18),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          'size : ${item?.ukuransepatu}',
+                          style: primaryTextStyle.copyWith(
+                              fontWeight: medium, fontSize: 16),
+                        ),
+                        Text(
+                          'admin : quinxx',
+                          style: primaryTextStyle.copyWith(
+                              fontWeight: medium, fontSize: 16),
+                        ),
+                      ],
                     ),
                   ),
+                  SizedBox(height: 11,),
                   Row(
                     children: [
+                      Text(''),
+                      Spacer(),
                       Container(
                         height: 30,
                         width: 80,
@@ -300,18 +318,8 @@ class _productCartScreenState extends State<productCartScreen> {
                                   borderRadius: BorderRadius.circular(4))),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 8, left: 10),
-                        height: 30,
-                        child: Center(
-                          child: Text(
-                            '${item?.ukuransepatu}',
-                            style: primaryTextStyle.copyWith(fontSize: 18),
-                          ),
-                        ),
-                      )
                     ],
-                  )
+                  ),
                 ],
               ),
             );
